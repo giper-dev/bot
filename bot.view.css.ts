@@ -23,6 +23,12 @@ namespace $.$$ {
 			padding: $mol_gap.text,
 		},
 		
+		Prompt_text: {
+			flex: {
+				shrink: 1,
+			},
+		},
+		
 		Context: {
 			flex: {
 				basis: '30rem',

@@ -10,13 +10,13 @@ $hd_bot $mol_book2
 				<= dialog_title? \Hyper Bot
 			body_content /
 				<= Status $mol_status
-					status <= model_response null
+					status <= communication null
 				<= Messages $mol_list
 					rows <= messages /
 						<= Message*0 $mol_view sub /
 							<= Message_text* $mol_text text <= message_text* \
 					Empty <= Messages_empty $mol_chip
-						title \👇 Promt what do you want
+						title \🤖 Hello, ask me something.
 			foot /
 				<= Avatar $mol_view sub / \🙂
 				<= Prompt_text $mol_textarea

@@ -25,7 +25,7 @@ namespace $.$$ {
 			return this.message_name( index ) + ' ' + ( this.history()[ index ] ?? '' )
 		}
 		
-		override message_name( index: number ): string {
+		message_name( index: number ): string {
 			return index % 2 ? '🤖' : '🙂'
 		}
 		
@@ -33,22 +33,26 @@ namespace $.$$ {
 			return this.rules() + '\nДалее идёт резюме прошлых обсуждений:\n' + this.digest()
 		}
 		
-		override model_response() {
-			return this.Model().response()
-		}
-		
-		override prompt_submit() {
+		@ $mol_mem
+		override communication() {
 			
-			this.history([ ... this.history(), this.prompt_text() ])
-			const resp = this.Model().ask( this.prompt_text() ).response()
+			const history = this.history()
+			if( history.length % 2 === 0 ) return
+			
+			const prompt = history.at(-1)
+			const model = this.Model()
+			
+			const resp = model.shot( prompt )
 			
 			this.dialog_title( resp.title )
 			this.digest( resp.digest )
-			this.history([ ... this.history(), resp.response ])
+			this.history([ ... history, resp.response ])
 			
-			this.Model().history([])
+		}
+		
+		override prompt_submit() {
+			this.history([ ... this.history(), this.prompt_text() ])
 			this.prompt_text( '' )
-			
 		}
 		
 	}
