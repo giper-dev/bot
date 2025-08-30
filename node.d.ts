@@ -1451,6 +1451,20 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    interface $mol_locale_dict {
+        [key: string]: string;
+    }
+    class $mol_locale extends $mol_object {
+        static lang_default(): string;
+        static lang(next?: string): string;
+        static source(lang: string): any;
+        static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
+        static text(key: string): string;
+        static warn(key: string): null;
+    }
+}
+
+declare namespace $ {
 
 	export class $mol_status extends $mol_view {
 		message( ): string
@@ -2251,20 +2265,6 @@ declare namespace $.$$ {
         html(): string;
         attachments(): ClipboardItem[];
         click(event?: Event): void;
-    }
-}
-
-declare namespace $ {
-    interface $mol_locale_dict {
-        [key: string]: string;
-    }
-    class $mol_locale extends $mol_object {
-        static lang_default(): string;
-        static lang(next?: string): string;
-        static source(lang: string): any;
-        static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
-        static text(key: string): string;
-        static warn(key: string): null;
     }
 }
 
@@ -3532,23 +3532,6 @@ declare namespace $ {
 
 declare namespace $ {
 
-	export class $mol_chip extends $mol_view {
-		hint( ): string
-		minimal_height( ): number
-		attr( ): ({ 
-			'title': ReturnType< $mol_chip['hint'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=chip.view.tree.d.ts.map
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-
 	export class $mol_hotkey extends $mol_plugin {
 		keydown( next?: any ): any
 		event( ): ({ 
@@ -4552,132 +4535,122 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_chip__title_hd_bot_4 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_chip['title'] >
-	>
-	type $mol_list__rows_hd_bot_5 = $mol_type_enforce<
+	type $mol_list__rows_hd_bot_4 = $mol_type_enforce<
 		ReturnType< $hd_bot['messages'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_list__Empty_hd_bot_6 = $mol_type_enforce<
-		ReturnType< $hd_bot['Messages_empty'] >
-		,
-		ReturnType< $mol_list['Empty'] >
-	>
-	type $mol_view__sub_hd_bot_7 = $mol_type_enforce<
+	type $mol_view__sub_hd_bot_5 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_textarea__hint_hd_bot_8 = $mol_type_enforce<
+	type $mol_textarea__hint_hd_bot_6 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_textarea['hint'] >
 	>
-	type $mol_textarea__value_hd_bot_9 = $mol_type_enforce<
+	type $mol_textarea__value_hd_bot_7 = $mol_type_enforce<
 		ReturnType< $hd_bot['prompt_text'] >
 		,
 		ReturnType< $mol_textarea['value'] >
 	>
-	type $mol_textarea__submit_hd_bot_10 = $mol_type_enforce<
+	type $mol_textarea__submit_hd_bot_8 = $mol_type_enforce<
 		ReturnType< $hd_bot['prompt_submit'] >
 		,
 		ReturnType< $mol_textarea['submit'] >
 	>
-	type $mol_button_minor__hint_hd_bot_11 = $mol_type_enforce<
+	type $mol_button_minor__hint_hd_bot_9 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click_hd_bot_12 = $mol_type_enforce<
+	type $mol_button_minor__click_hd_bot_10 = $mol_type_enforce<
 		ReturnType< $hd_bot['prompt_submit'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub_hd_bot_13 = $mol_type_enforce<
+	type $mol_button_minor__sub_hd_bot_11 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_page__title_content_hd_bot_14 = $mol_type_enforce<
+	type $mol_page__title_content_hd_bot_12 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['title_content'] >
 	>
-	type $mol_page__body_content_hd_bot_15 = $mol_type_enforce<
+	type $mol_page__body_content_hd_bot_13 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body_content'] >
 	>
-	type $mol_page__foot_hd_bot_16 = $mol_type_enforce<
+	type $mol_page__foot_hd_bot_14 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['foot'] >
 	>
-	type $mol_link_source__uri_hd_bot_17 = $mol_type_enforce<
+	type $mol_link_source__uri_hd_bot_15 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_source['uri'] >
 	>
-	type $mol_link_donate__uri_hd_bot_18 = $mol_type_enforce<
+	type $mol_link_donate__uri_hd_bot_16 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_donate['uri'] >
 	>
-	type $mol_link_support__uri_hd_bot_19 = $mol_type_enforce<
+	type $mol_link_support__uri_hd_bot_17 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_support['uri'] >
 	>
-	type $mol_text__text_hd_bot_20 = $mol_type_enforce<
+	type $mol_text__text_hd_bot_18 = $mol_type_enforce<
 		ReturnType< $hd_bot['digest'] >
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_labeler__title_hd_bot_21 = $mol_type_enforce<
+	type $mol_labeler__title_hd_bot_19 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_labeler__Content_hd_bot_22 = $mol_type_enforce<
+	type $mol_labeler__Content_hd_bot_20 = $mol_type_enforce<
 		ReturnType< $hd_bot['Digest'] >
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_text__text_hd_bot_23 = $mol_type_enforce<
+	type $mol_text__text_hd_bot_21 = $mol_type_enforce<
 		ReturnType< $hd_bot['rules'] >
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_labeler__title_hd_bot_24 = $mol_type_enforce<
+	type $mol_labeler__title_hd_bot_22 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_labeler__Content_hd_bot_25 = $mol_type_enforce<
+	type $mol_labeler__Content_hd_bot_23 = $mol_type_enforce<
 		ReturnType< $hd_bot['Rules'] >
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_page__title_hd_bot_26 = $mol_type_enforce<
+	type $mol_page__title_hd_bot_24 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_hd_bot_27 = $mol_type_enforce<
+	type $mol_page__tools_hd_bot_25 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__body_hd_bot_28 = $mol_type_enforce<
+	type $mol_page__body_hd_bot_26 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_github_model__rules_hd_bot_29 = $mol_type_enforce<
+	type $mol_github_model__rules_hd_bot_27 = $mol_type_enforce<
 		ReturnType< $hd_bot['context'] >
 		,
 		ReturnType< $mol_github_model['rules'] >
@@ -4692,7 +4665,6 @@ declare namespace $ {
 		Message_text( id: any): $mol_text
 		Message( id: any): $mol_view
 		messages( ): readonly(any)[]
-		Messages_empty( ): $mol_chip
 		Messages( ): $mol_list
 		Avatar( ): $mol_view
 		prompt_text( next?: string ): string

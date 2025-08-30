@@ -5010,6 +5010,72 @@ var $;
 })($ || ($ = {}));
 
 ;
+"use strict";
+var $;
+(function ($) {
+    class $mol_locale extends $mol_object {
+        static lang_default() {
+            return 'en';
+        }
+        static lang(next) {
+            return this.$.$mol_state_local.value('locale', next) || $mol_dom_context.navigator.language.replace(/-.*/, '') || this.lang_default();
+        }
+        static source(lang) {
+            return JSON.parse(this.$.$mol_file.relative(`web.locale=${lang}.json`).text().toString());
+        }
+        static texts(lang, next) {
+            if (next)
+                return next;
+            try {
+                return this.source(lang).valueOf();
+            }
+            catch (error) {
+                if ($mol_fail_catch(error)) {
+                    const def = this.lang_default();
+                    if (lang === def)
+                        throw error;
+                }
+            }
+            return {};
+        }
+        static text(key) {
+            const lang = this.lang();
+            const target = this.texts(lang)[key];
+            if (target)
+                return target;
+            this.warn(key);
+            const en = this.texts('en')[key];
+            if (!en)
+                return key;
+            return en;
+        }
+        static warn(key) {
+            console.warn(`Not translated to "${this.lang()}": ${key}`);
+            return null;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_locale, "lang_default", null);
+    __decorate([
+        $mol_mem
+    ], $mol_locale, "lang", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "source", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "texts", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "text", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "warn", null);
+    $.$mol_locale = $mol_locale;
+})($ || ($ = {}));
+
+;
 	($.$mol_status) = class $mol_status extends ($.$mol_view) {
 		message(){
 			return "";
@@ -6771,72 +6837,6 @@ var $;
         ], $mol_button_copy.prototype, "attachments", null);
         $$.$mol_button_copy = $mol_button_copy;
     })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_locale extends $mol_object {
-        static lang_default() {
-            return 'en';
-        }
-        static lang(next) {
-            return this.$.$mol_state_local.value('locale', next) || $mol_dom_context.navigator.language.replace(/-.*/, '') || this.lang_default();
-        }
-        static source(lang) {
-            return JSON.parse(this.$.$mol_file.relative(`web.locale=${lang}.json`).text().toString());
-        }
-        static texts(lang, next) {
-            if (next)
-                return next;
-            try {
-                return this.source(lang).valueOf();
-            }
-            catch (error) {
-                if ($mol_fail_catch(error)) {
-                    const def = this.lang_default();
-                    if (lang === def)
-                        throw error;
-                }
-            }
-            return {};
-        }
-        static text(key) {
-            const lang = this.lang();
-            const target = this.texts(lang)[key];
-            if (target)
-                return target;
-            this.warn(key);
-            const en = this.texts('en')[key];
-            if (!en)
-                return key;
-            return en;
-        }
-        static warn(key) {
-            console.warn(`Not translated to "${this.lang()}": ${key}`);
-            return null;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_locale, "lang_default", null);
-    __decorate([
-        $mol_mem
-    ], $mol_locale, "lang", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "source", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "texts", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "text", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "warn", null);
-    $.$mol_locale = $mol_locale;
 })($ || ($ = {}));
 
 ;
@@ -9155,45 +9155,6 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$mol_chip) = class $mol_chip extends ($.$mol_view) {
-		hint(){
-			return "";
-		}
-		minimal_height(){
-			return 40;
-		}
-		attr(){
-			return {...(super.attr()), "title": (this.hint())};
-		}
-		sub(){
-			return [(this.title())];
-		}
-	};
-
-
-;
-"use strict";
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        $mol_style_define($mol_chip, {
-            padding: $mol_gap.text,
-            border: {
-                radius: $mol_gap.round,
-            },
-            background: {
-                color: $mol_theme.card,
-            },
-            gap: $mol_gap.block,
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
 	($.$mol_hotkey) = class $mol_hotkey extends ($.$mol_plugin) {
 		keydown(next){
 			if(next !== undefined) return next;
@@ -10816,7 +10777,7 @@ var $;
 		}
 		dialog_title(next){
 			if(next !== undefined) return next;
-			return "Hyper Bot";
+			return (this.$.$mol_locale.text("$hd_bot_dialog_title"));
 		}
 		communication(){
 			return null;
@@ -10842,15 +10803,9 @@ var $;
 		messages(){
 			return [(this.Message("0"))];
 		}
-		Messages_empty(){
-			const obj = new this.$.$mol_chip();
-			(obj.title) = () => ("🤖 Hello, ask me something.");
-			return obj;
-		}
 		Messages(){
 			const obj = new this.$.$mol_list();
 			(obj.rows) = () => ((this.messages()));
-			(obj.Empty) = () => ((this.Messages_empty()));
 			return obj;
 		}
 		Avatar(){
@@ -10868,7 +10823,7 @@ var $;
 		}
 		Prompt_text(){
 			const obj = new this.$.$mol_textarea();
-			(obj.hint) = () => ("Prompt");
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hd_bot_Prompt_text_hint")));
 			(obj.value) = (next) => ((this.prompt_text(next)));
 			(obj.submit) = (next) => ((this.prompt_submit(next)));
 			return obj;
@@ -10879,7 +10834,7 @@ var $;
 		}
 		Prompt_submit(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => ("Send");
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hd_bot_Prompt_submit_hint")));
 			(obj.click) = (next) => ((this.prompt_submit(next)));
 			(obj.sub) = () => ([(this.Prompt_submit_icon())]);
 			return obj;
@@ -10925,7 +10880,7 @@ var $;
 		}
 		Digest_block(){
 			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Digest");
+			(obj.title) = () => ((this.$.$mol_locale.text("$hd_bot_Digest_block_title")));
 			(obj.Content) = () => ((this.Digest()));
 			return obj;
 		}
@@ -10939,7 +10894,7 @@ var $;
 		}
 		Rules_block(){
 			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Rules");
+			(obj.title) = () => ((this.$.$mol_locale.text("$hd_bot_Rules_block_title")));
 			(obj.Content) = () => ((this.Rules()));
 			return obj;
 		}
@@ -10976,7 +10931,6 @@ var $;
 	($mol_mem(($.$hd_bot.prototype), "Status"));
 	($mol_mem_key(($.$hd_bot.prototype), "Message_text"));
 	($mol_mem_key(($.$hd_bot.prototype), "Message"));
-	($mol_mem(($.$hd_bot.prototype), "Messages_empty"));
 	($mol_mem(($.$hd_bot.prototype), "Messages"));
 	($mol_mem(($.$hd_bot.prototype), "Avatar"));
 	($mol_mem(($.$hd_bot.prototype), "prompt_text"));
@@ -14241,6 +14195,27 @@ var $;
 
 ;
 "use strict";
+var $;
+(function ($_1) {
+    $mol_test_mocks.push($ => {
+        class $mol_locale_mock extends $mol_locale {
+            lang(next = 'en') { return next; }
+            static source(lang) {
+                return {};
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_locale_mock.prototype, "lang", null);
+        __decorate([
+            $mol_mem_key
+        ], $mol_locale_mock, "source", null);
+        $.$mol_locale = $mol_locale_mock;
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
 
 ;
 "use strict";
@@ -14656,27 +14631,6 @@ var $;
             },
         });
     })($$ = $_1.$$ || ($_1.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($_1) {
-    $mol_test_mocks.push($ => {
-        class $mol_locale_mock extends $mol_locale {
-            lang(next = 'en') { return next; }
-            static source(lang) {
-                return {};
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_locale_mock.prototype, "lang", null);
-        __decorate([
-            $mol_mem_key
-        ], $mol_locale_mock, "source", null);
-        $.$mol_locale = $mol_locale_mock;
-    });
 })($ || ($ = {}));
 
 ;
