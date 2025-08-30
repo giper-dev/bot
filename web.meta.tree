@@ -26,3 +26,6 @@
 	pack icon git \https://github.com/nin-jin/mol_icon.git
 \/mol/view
 	include \/mol/view/tree/test
+\/hd/bot
+	deploy \/hd/bot/logo
+	include \/mol/offline/install

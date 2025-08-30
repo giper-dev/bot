@@ -4529,6 +4529,13 @@ declare namespace $ {
 
 //# sourceMappingURL=list.view.tree.d.ts.map
 declare namespace $ {
+    function $mol_offline(): void;
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
 
 	type $mol_status__status_hd_bot_1 = $mol_type_enforce<
 		ReturnType< $hd_bot['communication'] >
@@ -4626,7 +4633,7 @@ declare namespace $ {
 		ReturnType< $mol_link_support['uri'] >
 	>
 	type $mol_text__text_hd_bot_20 = $mol_type_enforce<
-		ReturnType< $hd_bot['rules'] >
+		ReturnType< $hd_bot['digest'] >
 		,
 		ReturnType< $mol_text['text'] >
 	>
@@ -4636,12 +4643,12 @@ declare namespace $ {
 		ReturnType< $mol_labeler['title'] >
 	>
 	type $mol_labeler__Content_hd_bot_22 = $mol_type_enforce<
-		ReturnType< $hd_bot['Rules'] >
+		ReturnType< $hd_bot['Digest'] >
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
 	type $mol_text__text_hd_bot_23 = $mol_type_enforce<
-		ReturnType< $hd_bot['digest'] >
+		ReturnType< $hd_bot['rules'] >
 		,
 		ReturnType< $mol_text['text'] >
 	>
@@ -4651,7 +4658,7 @@ declare namespace $ {
 		ReturnType< $mol_labeler['title'] >
 	>
 	type $mol_labeler__Content_hd_bot_25 = $mol_type_enforce<
-		ReturnType< $hd_bot['Digest'] >
+		ReturnType< $hd_bot['Rules'] >
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
@@ -4698,12 +4705,12 @@ declare namespace $ {
 		Donate( ): $mol_link_donate
 		Support( ): $mol_link_support
 		Lights( ): $mol_lights_toggle
-		rules( ): string
-		Rules( ): $mol_text
-		Rules_block( ): $mol_labeler
 		digest( next?: string ): string
 		Digest( ): $mol_text
 		Digest_block( ): $mol_labeler
+		rules( ): string
+		Rules( ): $mol_text
+		Rules_block( ): $mol_labeler
 		Context( ): $mol_page
 		Model( next?: $mol_github_model ): $mol_github_model
 		plugins( ): readonly(any)[]

@@ -10914,20 +10914,6 @@ var $;
 			const obj = new this.$.$mol_lights_toggle();
 			return obj;
 		}
-		rules(){
-			return "Ты - универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле \"response\" находиться собственно ответ, а в поле \"digest\" должен находиться пересказ всего обсуждения, включающего как пересказ прошлых обсуждений, так и пересказ новых реплик. Пересказ должен быть лаконичным, но при этом не потерять никакие детали из прошлых обсуждений. А в поле \"title\" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение, а не только последние реплики.";
-		}
-		Rules(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.rules()));
-			return obj;
-		}
-		Rules_block(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Rules");
-			(obj.Content) = () => ((this.Rules()));
-			return obj;
-		}
 		digest(next){
 			if(next !== undefined) return next;
 			return "";
@@ -10943,6 +10929,20 @@ var $;
 			(obj.Content) = () => ((this.Digest()));
 			return obj;
 		}
+		rules(){
+			return "Ты - универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле \"response\" находиться собственно ответ, а в поле \"digest\" должен находиться пересказ всего обсуждения, включающего как пересказ прошлых обсуждений, так и пересказ новых реплик. Пересказ должен быть лаконичным, но при этом не потерять никакие детали из прошлых обсуждений. А в поле \"title\" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение, а не только последние реплики.";
+		}
+		Rules(){
+			const obj = new this.$.$mol_text();
+			(obj.text) = () => ((this.rules()));
+			return obj;
+		}
+		Rules_block(){
+			const obj = new this.$.$mol_labeler();
+			(obj.title) = () => ("Rules");
+			(obj.Content) = () => ((this.Rules()));
+			return obj;
+		}
 		Context(){
 			const obj = new this.$.$mol_page();
 			(obj.title) = () => ((this.$.$mol_locale.text("$hd_bot_Context_title")));
@@ -10952,7 +10952,7 @@ var $;
 				(this.Support()), 
 				(this.Lights())
 			]);
-			(obj.body) = () => ([(this.Rules_block()), (this.Digest_block())]);
+			(obj.body) = () => ([(this.Digest_block()), (this.Rules_block())]);
 			return obj;
 		}
 		Model(next){
@@ -10989,14 +10989,34 @@ var $;
 	($mol_mem(($.$hd_bot.prototype), "Donate"));
 	($mol_mem(($.$hd_bot.prototype), "Support"));
 	($mol_mem(($.$hd_bot.prototype), "Lights"));
-	($mol_mem(($.$hd_bot.prototype), "Rules"));
-	($mol_mem(($.$hd_bot.prototype), "Rules_block"));
 	($mol_mem(($.$hd_bot.prototype), "digest"));
 	($mol_mem(($.$hd_bot.prototype), "Digest"));
 	($mol_mem(($.$hd_bot.prototype), "Digest_block"));
+	($mol_mem(($.$hd_bot.prototype), "Rules"));
+	($mol_mem(($.$hd_bot.prototype), "Rules_block"));
 	($mol_mem(($.$hd_bot.prototype), "Context"));
 	($mol_mem(($.$hd_bot.prototype), "Model"));
 
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_offline() { }
+    $.$mol_offline = $mol_offline;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    try {
+        $mol_offline();
+    }
+    catch (error) {
+        console.error(error);
+    }
+})($ || ($ = {}));
 
 ;
 "use strict";

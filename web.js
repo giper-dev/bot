@@ -10335,20 +10335,6 @@ var $;
 			const obj = new this.$.$mol_lights_toggle();
 			return obj;
 		}
-		rules(){
-			return "Ты - универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле \"response\" находиться собственно ответ, а в поле \"digest\" должен находиться пересказ всего обсуждения, включающего как пересказ прошлых обсуждений, так и пересказ новых реплик. Пересказ должен быть лаконичным, но при этом не потерять никакие детали из прошлых обсуждений. А в поле \"title\" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение, а не только последние реплики.";
-		}
-		Rules(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.rules()));
-			return obj;
-		}
-		Rules_block(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Rules");
-			(obj.Content) = () => ((this.Rules()));
-			return obj;
-		}
 		digest(next){
 			if(next !== undefined) return next;
 			return "";
@@ -10364,6 +10350,20 @@ var $;
 			(obj.Content) = () => ((this.Digest()));
 			return obj;
 		}
+		rules(){
+			return "Ты - универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле \"response\" находиться собственно ответ, а в поле \"digest\" должен находиться пересказ всего обсуждения, включающего как пересказ прошлых обсуждений, так и пересказ новых реплик. Пересказ должен быть лаконичным, но при этом не потерять никакие детали из прошлых обсуждений. А в поле \"title\" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение, а не только последние реплики.";
+		}
+		Rules(){
+			const obj = new this.$.$mol_text();
+			(obj.text) = () => ((this.rules()));
+			return obj;
+		}
+		Rules_block(){
+			const obj = new this.$.$mol_labeler();
+			(obj.title) = () => ("Rules");
+			(obj.Content) = () => ((this.Rules()));
+			return obj;
+		}
 		Context(){
 			const obj = new this.$.$mol_page();
 			(obj.title) = () => ((this.$.$mol_locale.text("$hd_bot_Context_title")));
@@ -10373,7 +10373,7 @@ var $;
 				(this.Support()), 
 				(this.Lights())
 			]);
-			(obj.body) = () => ([(this.Rules_block()), (this.Digest_block())]);
+			(obj.body) = () => ([(this.Digest_block()), (this.Rules_block())]);
 			return obj;
 		}
 		Model(next){
@@ -10410,14 +10410,127 @@ var $;
 	($mol_mem(($.$hd_bot.prototype), "Donate"));
 	($mol_mem(($.$hd_bot.prototype), "Support"));
 	($mol_mem(($.$hd_bot.prototype), "Lights"));
-	($mol_mem(($.$hd_bot.prototype), "Rules"));
-	($mol_mem(($.$hd_bot.prototype), "Rules_block"));
 	($mol_mem(($.$hd_bot.prototype), "digest"));
 	($mol_mem(($.$hd_bot.prototype), "Digest"));
 	($mol_mem(($.$hd_bot.prototype), "Digest_block"));
+	($mol_mem(($.$hd_bot.prototype), "Rules"));
+	($mol_mem(($.$hd_bot.prototype), "Rules_block"));
 	($mol_mem(($.$hd_bot.prototype), "Context"));
 	($mol_mem(($.$hd_bot.prototype), "Model"));
 
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_offline() { }
+    $.$mol_offline = $mol_offline;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    const blacklist = new Set([
+        '//cse.google.com/adsense/search/async-ads.js'
+    ]);
+    function $mol_offline_web() {
+        if (typeof window === 'undefined') {
+            self.addEventListener('install', (event) => {
+                ;
+                self.skipWaiting();
+            });
+            self.addEventListener('activate', (event) => {
+                ;
+                self.clients.claim();
+                $$.$mol_log3_done({
+                    place: '$mol_offline',
+                    message: 'Activated',
+                });
+            });
+            self.addEventListener('fetch', (event) => {
+                const request = event.request;
+                if (blacklist.has(request.url.replace(/^https?:/, ''))) {
+                    return event.respondWith(new Response(null, {
+                        status: 418,
+                        statusText: 'Blocked'
+                    }));
+                }
+                if (request.method !== 'GET')
+                    return;
+                if (!/^https?:/.test(request.url))
+                    return;
+                if (/\?/.test(request.url))
+                    return;
+                if (request.cache === 'no-store')
+                    return;
+                const fetch_data = () => fetch(new Request(request, { credentials: 'omit' })).then(response => {
+                    if (response.status !== 200)
+                        return response;
+                    event.waitUntil(caches.open('$mol_offline').then(cache => cache.put(request, response)));
+                    return response.clone();
+                });
+                const enrich = (response) => {
+                    if (!response.status)
+                        return response;
+                    const headers = new Headers(response.headers);
+                    headers.set("$mol_offline", "");
+                    return new Response(response.body, {
+                        status: response.status,
+                        statusText: response.statusText,
+                        headers,
+                    });
+                };
+                const fresh = request.cache === 'force-cache' ? null : fetch_data();
+                if (fresh)
+                    event.waitUntil(fresh.then(enrich));
+                event.respondWith(caches.match(request).then(cached => request.cache === 'no-cache' || request.cache === 'reload'
+                    ? (cached
+                        ? fresh
+                            .then(actual => {
+                            if (actual.status === cached.status)
+                                return actual;
+                            throw new Error(`${actual.status}${actual.statusText ? ` ${actual.statusText}` : ''}`, { cause: actual });
+                        })
+                            .catch((err) => {
+                            const cloned = cached.clone();
+                            const message = `${err.cause instanceof Response ? '' : '500 '}${err.message} $mol_offline fallback to cache`;
+                            cloned.headers.set('$mol_offline_remote_status', message);
+                            return cloned;
+                        })
+                        : fresh)
+                    : (cached || fresh || fetch_data())).then(enrich));
+            });
+            self.addEventListener('beforeinstallprompt', (event) => event.prompt());
+        }
+        else if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+            console.warn('HTTPS or localhost is required for service workers.');
+        }
+        else if (!navigator.serviceWorker) {
+            console.warn('Service Worker is not supported.');
+        }
+        else {
+            $mol_dom.addEventListener('DOMContentLoaded', () => {
+                navigator.serviceWorker.register('web.js').then(reg => {
+                });
+            });
+        }
+    }
+    $.$mol_offline_web = $mol_offline_web;
+    $.$mol_offline = $mol_offline_web;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    try {
+        $mol_offline();
+    }
+    catch (error) {
+        console.error(error);
+    }
+})($ || ($ = {}));
 
 ;
 "use strict";
