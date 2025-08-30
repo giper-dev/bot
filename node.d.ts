@@ -4638,6 +4638,7 @@ declare namespace $.$$ {
         messages(): $mol_view[];
         message_text(index: number): string;
         message_name(index: number): string;
+        rules(): string;
         context(): string;
         communication(): void;
         prompt_submit(): void;
