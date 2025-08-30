@@ -10140,44 +10140,6 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$mol_labeler) = class $mol_labeler extends ($.$mol_list) {
-		label(){
-			return [(this.title())];
-		}
-		Label(){
-			const obj = new this.$.$mol_view();
-			(obj.minimal_height) = () => (32);
-			(obj.sub) = () => ((this.label()));
-			return obj;
-		}
-		content(){
-			return [];
-		}
-		Content(){
-			const obj = new this.$.$mol_view();
-			(obj.minimal_height) = () => (24);
-			(obj.sub) = () => ((this.content()));
-			return obj;
-		}
-		rows(){
-			return [(this.Label()), (this.Content())];
-		}
-	};
-	($mol_mem(($.$mol_labeler.prototype), "Label"));
-	($mol_mem(($.$mol_labeler.prototype), "Content"));
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_label] {\n\tmin-height: 2rem;\n\tcolor: var(--mol_theme_shade);\n\tpadding: .5rem .75rem 0;\n\tgap: 0 var(--mol_gap_block);\n\tflex-wrap: wrap;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n\tpadding: var(--mol_gap_text);\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-;
 "use strict";
 
 ;
@@ -10887,26 +10849,6 @@ var $;
 			(obj.text) = () => ((this.digest()));
 			return obj;
 		}
-		Digest_block(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ((this.$.$mol_locale.text("$hd_bot_Digest_block_title")));
-			(obj.Content) = () => ((this.Digest()));
-			return obj;
-		}
-		rules(){
-			return "Ты - универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле \"response\" находиться собственно ответ, а в поле \"digest\" должен находиться пересказ всего обсуждения, включающего как пересказ прошлых обсуждений, так и пересказ новых реплик. Пересказ должен быть лаконичным, но при этом не потерять никакие детали из прошлых обсуждений. А в поле \"title\" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение, а не только последние реплики.";
-		}
-		Rules(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.rules()));
-			return obj;
-		}
-		Rules_block(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ((this.$.$mol_locale.text("$hd_bot_Rules_block_title")));
-			(obj.Content) = () => ((this.Rules()));
-			return obj;
-		}
 		Context(){
 			const obj = new this.$.$mol_page();
 			(obj.title) = () => ((this.$.$mol_locale.text("$hd_bot_Context_title")));
@@ -10916,7 +10858,7 @@ var $;
 				(this.Support()), 
 				(this.Lights())
 			]);
-			(obj.body) = () => ([(this.Digest_block()), (this.Rules_block())]);
+			(obj.body) = () => ([(this.Digest())]);
 			return obj;
 		}
 		Model(next){
@@ -10933,6 +10875,9 @@ var $;
 		}
 		placeholders(){
 			return [(this.Context())];
+		}
+		rules(){
+			return "Ты - универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле \"response\" находиться собственно ответ, а в поле \"digest\" должен находиться пересказ всего обсуждения, включающего как пересказ прошлых обсуждений, так и пересказ новых реплик. Пересказ должен быть лаконичным, но при этом не потерять никакие детали из прошлых обсуждений. А в поле \"title\" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение, а не только последние реплики.";
 		}
 	};
 	($mol_mem(($.$hd_bot.prototype), "Theme"));
@@ -10954,9 +10899,6 @@ var $;
 	($mol_mem(($.$hd_bot.prototype), "Lights"));
 	($mol_mem(($.$hd_bot.prototype), "digest"));
 	($mol_mem(($.$hd_bot.prototype), "Digest"));
-	($mol_mem(($.$hd_bot.prototype), "Digest_block"));
-	($mol_mem(($.$hd_bot.prototype), "Rules"));
-	($mol_mem(($.$hd_bot.prototype), "Rules_block"));
 	($mol_mem(($.$hd_bot.prototype), "Context"));
 	($mol_mem(($.$hd_bot.prototype), "Model"));
 

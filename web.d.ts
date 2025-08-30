@@ -3890,42 +3890,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_view__minimal_height_mol_labeler_1 = $mol_type_enforce<
-		number
-		,
-		ReturnType< $mol_view['minimal_height'] >
-	>
-	type $mol_view__sub_mol_labeler_2 = $mol_type_enforce<
-		ReturnType< $mol_labeler['label'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__minimal_height_mol_labeler_3 = $mol_type_enforce<
-		number
-		,
-		ReturnType< $mol_view['minimal_height'] >
-	>
-	type $mol_view__sub_mol_labeler_4 = $mol_type_enforce<
-		ReturnType< $mol_labeler['content'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	export class $mol_labeler extends $mol_list {
-		label( ): readonly($mol_view_content)[]
-		Label( ): $mol_view
-		content( ): readonly(any)[]
-		Content( ): $mol_view
-		rows( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=labeler.view.tree.d.ts.map
-declare namespace $ {
     type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
 }
 
@@ -4471,47 +4435,22 @@ declare namespace $ {
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_labeler__title_hd_bot_19 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__Content_hd_bot_20 = $mol_type_enforce<
-		ReturnType< $hd_bot['Digest'] >
-		,
-		ReturnType< $mol_labeler['Content'] >
-	>
-	type $mol_text__text_hd_bot_21 = $mol_type_enforce<
-		ReturnType< $hd_bot['rules'] >
-		,
-		ReturnType< $mol_text['text'] >
-	>
-	type $mol_labeler__title_hd_bot_22 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__Content_hd_bot_23 = $mol_type_enforce<
-		ReturnType< $hd_bot['Rules'] >
-		,
-		ReturnType< $mol_labeler['Content'] >
-	>
-	type $mol_page__title_hd_bot_24 = $mol_type_enforce<
+	type $mol_page__title_hd_bot_19 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_hd_bot_25 = $mol_type_enforce<
+	type $mol_page__tools_hd_bot_20 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__body_hd_bot_26 = $mol_type_enforce<
+	type $mol_page__body_hd_bot_21 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_github_model__rules_hd_bot_27 = $mol_type_enforce<
+	type $mol_github_model__rules_hd_bot_22 = $mol_type_enforce<
 		ReturnType< $hd_bot['context'] >
 		,
 		ReturnType< $mol_github_model['rules'] >
@@ -4540,15 +4479,12 @@ declare namespace $ {
 		Lights( ): $mol_lights_toggle
 		digest( next?: string ): string
 		Digest( ): $mol_text
-		Digest_block( ): $mol_labeler
-		rules( ): string
-		Rules( ): $mol_text
-		Rules_block( ): $mol_labeler
 		Context( ): $mol_page
 		Model( next?: $mol_github_model ): $mol_github_model
 		plugins( ): readonly(any)[]
 		pages( ): readonly(any)[]
 		placeholders( ): readonly(any)[]
+		rules( ): string
 	}
 	
 }

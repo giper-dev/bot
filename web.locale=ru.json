@@ -1,9 +1,7 @@
 {
 	"$hd_bot_Context_title": "Контекст",
-	"$hd_bot_Digest_block_title": "Дайджест",
 	"$hd_bot_Prompt_submit_hint": "Отправить",
 	"$hd_bot_Prompt_text_hint": "Спроси что-нибудь",
-	"$hd_bot_Rules_block_title": "Правила",
 	"$hd_bot_dialog_title": "Гипер Бот",
 	"$mol_lights_toggle_hint": "Переключить освещение",
 	"$mol_link_donate_hint": "Поблагодарить рублём",
