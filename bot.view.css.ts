@@ -1,6 +1,17 @@
 namespace $.$$ {
 	
+	const { url, linear_gradient, hsla } = $mol_style_func
+	
 	$mol_style_define( $hd_bot, {
+		
+		background: {
+			size: [ 'cover' ],
+			position: 'center',
+			image: [
+				[ linear_gradient( $mol_theme.spirit ) ],
+				[ url( 'hd/bot/logo/back.jpg' ) ],
+			]
+		},
 		
 		Dialog: {
 			margin: [ 0, 'auto' ],
