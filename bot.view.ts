@@ -15,7 +15,7 @@ namespace $.$$ {
 		
 		@ $mol_mem
 		history( next?: string[] ) {
-			return this.$.$mol_state_session.value( 'history', next ) ?? $mol_maybe( this.$.$mol_state_arg.value( 'prompt' ) )
+			return this.$.$mol_state_session.value( 'history', next ) ?? $mol_maybe( this.$.$mol_state_arg.value( 'prompt' ) || null )
 		}
 		
 		override messages() {
