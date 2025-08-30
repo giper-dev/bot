@@ -1,0 +1,8 @@
+{
+	"$hd_bot_dialog_title": "Гипер Бот",
+	"$hd_bot_Prompt_text_hint": "Спроси что-нибудь",
+	"$hd_bot_Prompt_submit_hint": "Отправить",
+	"$hd_bot_Digest_block_title": "Дайджест",
+	"$hd_bot_Rules_block_title": "Правила",
+	"$hd_bot_Context_title": "Контекст"
+}

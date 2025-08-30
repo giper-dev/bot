@@ -7,7 +7,7 @@ $hd_bot $mol_book2
 		<= Dialog $mol_page
 			title_content /
 				\🤖 
-				<= dialog_title? \Hyper Bot
+				<= dialog_title? @ \Hyper Bot
 			body_content /
 				<= Status $mol_status
 					status <= communication null
@@ -15,16 +15,14 @@ $hd_bot $mol_book2
 					rows <= messages /
 						<= Message*0 $mol_view sub /
 							<= Message_text* $mol_text text <= message_text* \
-					Empty <= Messages_empty $mol_chip
-						title \🤖 Hello, ask me something.
 			foot /
 				<= Avatar $mol_view sub / \🙂
 				<= Prompt_text $mol_textarea
-					hint \Prompt
+					hint @ \Ask something
 					value? <=> prompt_text? \
 					submit? <=> prompt_submit? null
 				<= Prompt_submit $mol_button_minor
-					hint \Send
+					hint @ \Send
 					click? <=> prompt_submit? 
 					sub /
 						<= Prompt_submit_icon $mol_icon_send
@@ -41,10 +39,10 @@ $hd_bot $mol_book2
 				<= Lights $mol_lights_toggle
 			body /
 				<= Digest_block $mol_labeler
-					title \Digest
+					title @ \Digest
 					Content <= Digest $mol_text
 						text <= digest? \
 				<= Rules_block $mol_labeler
-					title \Rules
+					title @ \Rules
 					Content <= Rules $mol_text
 						text <= rules \Ты - универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле "response" находиться собственно ответ, а в поле "digest" должен находиться пересказ всего обсуждения, включающего как пересказ прошлых обсуждений, так и пересказ новых реплик. Пересказ должен быть лаконичным, но при этом не потерять никакие детали из прошлых обсуждений. А в поле "title" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение, а не только последние реплики.
