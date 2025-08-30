@@ -30,6 +30,11 @@ namespace $.$$ {
 			return index % 2 ? '🤖' : '🙂'
 		}
 		
+		@ $mol_mem
+		override rules() {
+			return super.rules().replaceAll( '{lang}', this.$.$mol_locale.lang() )
+		}
+		
 		override context() {
 			return this.rules() + '\nДалее идёт резюме прошлых обсуждений:\n' + this.digest()
 		}
