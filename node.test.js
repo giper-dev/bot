@@ -11018,7 +11018,7 @@ var $;
                 return this.$.$mol_state_session.value('prompt_text', next) ?? '';
             }
             history(next) {
-                return this.$.$mol_state_session.value('history', next) ?? [];
+                return this.$.$mol_state_session.value('history', next) ?? $mol_maybe(this.$.$mol_state_arg.value('prompt'));
             }
             messages() {
                 return this.history().map((_, i) => this.Message(i));
@@ -11048,6 +11048,9 @@ var $;
                 this.prompt_text('');
             }
         }
+        __decorate([
+            $mol_mem
+        ], $hd_bot.prototype, "history", null);
         __decorate([
             $mol_mem
         ], $hd_bot.prototype, "communication", null);
