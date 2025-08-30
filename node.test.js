@@ -10824,7 +10824,7 @@ var $;
 		}
 		Support(){
 			const obj = new this.$.$mol_link_support();
-			(obj.uri) = () => ("https://t.me/hd4ru/");
+			(obj.uri) = () => ("https://t.me/hd4ru/276");
 			return obj;
 		}
 		Lights(){
