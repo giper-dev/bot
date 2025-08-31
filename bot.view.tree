@@ -29,7 +29,7 @@ $hd_bot $mol_book2
 						<= Prompt_submit_icon $mol_icon_send
 	placeholders /
 		<= Context $mol_page
-			title @ \Context
+			title @ \Summary
 			tools /
 				<= Reset $mol_button_minor
 					hint @ \Reset

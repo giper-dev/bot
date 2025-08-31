@@ -36,7 +36,7 @@ namespace $.$$ {
 		}
 		
 		override context() {
-			return this.rules() + '\n' + this.digest()
+			return this.rules()
 		}
 		
 		@ $mol_mem
@@ -45,8 +45,12 @@ namespace $.$$ {
 			const history = this.history()
 			if( history.length % 2 === 0 ) return
 			
-			const prompt = history.at(-1)
-			const resp = this.Model().shot( prompt )
+			const model = this.Model().fork()
+			for( let i = 0; i < history.length; ++i ) {
+				if( i % 2 ) model.tell({ response: history[i], digest: null, title:  null })
+				else model.ask( history[i] )
+			}
+			const resp = model.response()
 			
 			this.dialog_title( resp.title )
 			this.digest( resp.digest )
