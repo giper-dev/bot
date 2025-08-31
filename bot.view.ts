@@ -36,7 +36,7 @@ namespace $.$$ {
 		}
 		
 		override context() {
-			return this.rules() + '\nДля контекста, далее идёт пересказ прошлых ваших сообщений:\n' + this.digest()
+			return this.rules() + '\n' + this.digest()
 		}
 		
 		@ $mol_mem
