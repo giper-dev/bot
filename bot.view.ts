@@ -55,7 +55,7 @@ namespace $.$$ {
 		}
 		
 		override prompt_submit() {
-			this.history([ ... this.history(), this.prompt_text() ])
+			this.history([ ... this.history(), ... $mol_maybe( this.prompt_text() || null ) ])
 			this.prompt_text( '' )
 		}
 		
