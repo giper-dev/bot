@@ -4434,8 +4434,9 @@ declare namespace $ {
             tool_call_id: string;
         }>)[];
         fork(): $mol_github_model;
-        shot(prompt: any, params?: {}): any;
+        shot(prompt: any, context?: any, params?: {}): any;
         ask(text: any): this;
+        tell(text: any): this;
         answer(id: string, data: any): this;
         request_body(model: string): string;
         request(model: string, key: string): Readonly<{

@@ -10011,10 +10011,12 @@ var $;
             fork.history(this.history());
             return fork;
         }
-        shot(prompt, params) {
+        shot(prompt, context, params) {
             const fork = this.fork();
             if (params)
                 fork.params({ ...this.params(), ...params });
+            if (context)
+                fork.tell(context);
             fork.ask(prompt);
             return fork.response();
         }
@@ -10023,6 +10025,16 @@ var $;
                 ...this.history(),
                 {
                     role: "user",
+                    content: JSON.stringify(text),
+                }
+            ]);
+            return this;
+        }
+        tell(text) {
+            this.history([
+                ...this.history(),
+                {
+                    role: "assistant",
                     content: JSON.stringify(text),
                 }
             ]);
@@ -10080,7 +10092,7 @@ var $;
             const last = history.at(-1);
             if (last?.role !== 'user')
                 return null;
-            const models = this.names();
+            const models = this.$.$mol_array_shuffle_sync(this.names());
             const keys = this.$.$mol_array_shuffle_sync($.$mol_github_model_keys);
             for (const model of models)
                 for (const key of keys) {
@@ -10120,6 +10132,9 @@ var $;
     __decorate([
         $mol_action
     ], $mol_github_model.prototype, "ask", null);
+    __decorate([
+        $mol_action
+    ], $mol_github_model.prototype, "tell", null);
     __decorate([
         $mol_action
     ], $mol_github_model.prototype, "answer", null);
