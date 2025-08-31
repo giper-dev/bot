@@ -3880,6 +3880,24 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
+	export class $mol_icon_trash_can extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=can.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_trash_can_outline extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=outline.view.tree.d.ts.map
+declare namespace $ {
+
 	export class $mol_icon_script extends $mol_icon {
 		path( ): string
 	}
@@ -4554,48 +4572,71 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['foot'] >
 	>
-	type $mol_link_source__uri_hd_bot_15 = $mol_type_enforce<
+	type $mol_button_minor__hint_hd_bot_15 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_minor['hint'] >
+	>
+	type $mol_button_minor__click_hd_bot_16 = $mol_type_enforce<
+		ReturnType< $hd_bot['reset'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__sub_hd_bot_17 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_link_source__uri_hd_bot_18 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_source['uri'] >
 	>
-	type $mol_link_donate__uri_hd_bot_16 = $mol_type_enforce<
+	type $mol_link_donate__uri_hd_bot_19 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_donate['uri'] >
 	>
-	type $mol_link_support__uri_hd_bot_17 = $mol_type_enforce<
+	type $mol_link_support__uri_hd_bot_20 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_support['uri'] >
 	>
-	type $mol_text__text_hd_bot_18 = $mol_type_enforce<
+	type $mol_text__text_hd_bot_21 = $mol_type_enforce<
 		ReturnType< $hd_bot['digest'] >
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_page__title_hd_bot_19 = $mol_type_enforce<
+	type $mol_page__title_hd_bot_22 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_hd_bot_20 = $mol_type_enforce<
+	type $mol_page__tools_hd_bot_23 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__body_hd_bot_21 = $mol_type_enforce<
+	type $mol_page__body_hd_bot_24 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_github_model__rules_hd_bot_22 = $mol_type_enforce<
+	type $mol_github_model__params_hd_bot_25 = $mol_type_enforce<
+		({ 
+			'temperature': number,
+		}) 
+		,
+		ReturnType< $mol_github_model['params'] >
+	>
+	type $mol_github_model__rules_hd_bot_26 = $mol_type_enforce<
 		ReturnType< $hd_bot['context'] >
 		,
 		ReturnType< $mol_github_model['rules'] >
 	>
 	export class $hd_bot extends $mol_book2 {
-		context( ): string
+		rules( ): string
+		context( ): ReturnType< $hd_bot['rules'] >
 		Theme( ): $mol_theme_auto
 		dialog_title( next?: string ): string
 		communication( ): any
@@ -4612,6 +4653,9 @@ declare namespace $ {
 		Prompt_submit_icon( ): $mol_icon_send
 		Prompt_submit( ): $mol_button_minor
 		Dialog( ): $mol_page
+		reset( next?: any ): any
+		Reset_icon( ): $mol_icon_trash_can_outline
+		Reset( ): $mol_button_minor
 		Sources( ): $mol_link_source
 		Donate( ): $mol_link_donate
 		Support( ): $mol_link_support
@@ -4623,7 +4667,6 @@ declare namespace $ {
 		plugins( ): readonly(any)[]
 		pages( ): readonly(any)[]
 		placeholders( ): readonly(any)[]
-		rules( ): string
 	}
 	
 }
@@ -4631,7 +4674,7 @@ declare namespace $ {
 //# sourceMappingURL=bot.view.tree.d.ts.map
 declare namespace $.$$ {
     class $hd_bot extends $.$hd_bot {
-        dialog_title(next?: string): string;
+        dialog_title(next?: string | null): string;
         digest(next?: string): string;
         prompt_text(next?: string): string;
         history(next?: string[]): string[];
@@ -4642,6 +4685,7 @@ declare namespace $.$$ {
         context(): string;
         communication(): void;
         prompt_submit(): void;
+        reset(): void;
     }
 }
 

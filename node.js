@@ -9950,6 +9950,28 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$mol_icon_trash_can) = class $mol_icon_trash_can extends ($.$mol_icon) {
+		path(){
+			return "M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_icon_trash_can_outline) = class $mol_icon_trash_can_outline extends ($.$mol_icon) {
+		path(){
+			return "M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
 	($.$mol_icon_script) = class $mol_icon_script extends ($.$mol_icon) {
 		path(){
 			return "M17.8,20C17.4,21.2 16.3,22 15,22H5C3.3,22 2,20.7 2,19V18H5L14.2,18C14.6,19.2 15.7,20 17,20H17.8M19,2H8C6.3,2 5,3.3 5,5V16H16V17C16,17.6 16.4,18 17,18H18V5C18,4.4 18.4,4 19,4C19.6,4 20,4.4 20,5V6H22V5C22,3.3 20.7,2 19,2Z";
@@ -10739,8 +10761,11 @@ var $;
 
 ;
 	($.$hd_bot) = class $hd_bot extends ($.$mol_book2) {
+		rules(){
+			return "Ты - Гипер Бот, универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле \"response\" находиться собственно ответ, а в поле \"digest\" должен находиться детальный пересказ всего диалога пользователя и Гипер Бота, включая прошлые сообщения без потери информации. А в поле \"title\" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение целиком. Отвечай всегда на языке с кодом {lang}, если пользователь не попросил иное.";
+		}
 		context(){
-			return "";
+			return (this.rules());
 		}
 		Theme(){
 			const obj = new this.$.$mol_theme_auto();
@@ -10821,6 +10846,21 @@ var $;
 			]);
 			return obj;
 		}
+		reset(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Reset_icon(){
+			const obj = new this.$.$mol_icon_trash_can_outline();
+			return obj;
+		}
+		Reset(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hd_bot_Reset_hint")));
+			(obj.click) = (next) => ((this.reset(next)));
+			(obj.sub) = () => ([(this.Reset_icon())]);
+			return obj;
+		}
 		Sources(){
 			const obj = new this.$.$mol_link_source();
 			(obj.uri) = () => ("https://github.com/hd4ru/bot/");
@@ -10853,6 +10893,7 @@ var $;
 			const obj = new this.$.$mol_page();
 			(obj.title) = () => ((this.$.$mol_locale.text("$hd_bot_Context_title")));
 			(obj.tools) = () => ([
+				(this.Reset()), 
 				(this.Sources()), 
 				(this.Donate()), 
 				(this.Support()), 
@@ -10864,6 +10905,7 @@ var $;
 		Model(next){
 			if(next !== undefined) return next;
 			const obj = new this.$.$mol_github_model();
+			(obj.params) = () => ({"temperature": 0});
 			(obj.rules) = () => ((this.context()));
 			return obj;
 		}
@@ -10875,9 +10917,6 @@ var $;
 		}
 		placeholders(){
 			return [(this.Context())];
-		}
-		rules(){
-			return "Ты - универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле \"response\" находиться собственно ответ, а в поле \"digest\" должен находиться пересказ всего обсуждения, включающего как пересказ прошлых обсуждений, так и пересказ новых реплик. Пересказ должен быть лаконичным, но при этом не потерять никакие детали из прошлых обсуждений. А в поле \"title\" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение, а не только последние реплики. Отвечай всегда на языке с кодом {lang}, если пользователь не попросил иное.";
 		}
 	};
 	($mol_mem(($.$hd_bot.prototype), "Theme"));
@@ -10893,6 +10932,9 @@ var $;
 	($mol_mem(($.$hd_bot.prototype), "Prompt_submit_icon"));
 	($mol_mem(($.$hd_bot.prototype), "Prompt_submit"));
 	($mol_mem(($.$hd_bot.prototype), "Dialog"));
+	($mol_mem(($.$hd_bot.prototype), "reset"));
+	($mol_mem(($.$hd_bot.prototype), "Reset_icon"));
+	($mol_mem(($.$hd_bot.prototype), "Reset"));
 	($mol_mem(($.$hd_bot.prototype), "Sources"));
 	($mol_mem(($.$hd_bot.prototype), "Donate"));
 	($mol_mem(($.$hd_bot.prototype), "Support"));
@@ -10958,15 +11000,14 @@ var $;
                 return super.rules().replaceAll('{lang}', this.$.$mol_locale.lang());
             }
             context() {
-                return this.rules() + '\nДалее идёт резюме прошлых обсуждений:\n' + this.digest();
+                return this.rules() + '\nДля контекста, далее идёт пересказ прошлых ваших сообщений:\n' + this.digest();
             }
             communication() {
                 const history = this.history();
                 if (history.length % 2 === 0)
                     return;
                 const prompt = history.at(-1);
-                const model = this.Model();
-                const resp = model.shot(prompt);
+                const resp = this.Model().shot(prompt);
                 this.dialog_title(resp.title);
                 this.digest(resp.digest);
                 this.history([...history, resp.response]);
@@ -10974,6 +11015,11 @@ var $;
             prompt_submit() {
                 this.history([...this.history(), this.prompt_text()]);
                 this.prompt_text('');
+            }
+            reset() {
+                this.dialog_title(null);
+                this.digest('');
+                this.history([]);
             }
         }
         __decorate([

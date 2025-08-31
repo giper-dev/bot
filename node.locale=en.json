@@ -2,6 +2,7 @@
 	"$hd_bot_Context_title": "Context",
 	"$hd_bot_Prompt_submit_hint": "Send",
 	"$hd_bot_Prompt_text_hint": "Ask something",
+	"$hd_bot_Reset_hint": "Reset",
 	"$hd_bot_dialog_title": "Hyper Bot",
 	"$mol_lights_toggle_hint": "Toggle lights",
 	"$mol_link_donate_hint": "Thank with a dollar",
