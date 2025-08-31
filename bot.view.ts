@@ -1,7 +1,7 @@
 namespace $.$$ {
 	export class $hd_bot extends $.$hd_bot {
 		
-		override dialog_title( next?: string ) {
+		override dialog_title( next?: string | null ) {
 			return this.$.$mol_state_session.value( 'title', next ) ?? super.dialog_title()
 		}
 		
@@ -36,7 +36,7 @@ namespace $.$$ {
 		}
 		
 		override context() {
-			return this.rules() + '\nДалее идёт резюме прошлых обсуждений:\n' + this.digest()
+			return this.rules() + '\nДля контекста, далее идёт пересказ прошлых ваших сообщений:\n' + this.digest()
 		}
 		
 		@ $mol_mem
@@ -46,9 +46,7 @@ namespace $.$$ {
 			if( history.length % 2 === 0 ) return
 			
 			const prompt = history.at(-1)
-			const model = this.Model()
-			
-			const resp = model.shot( prompt )
+			const resp = this.Model().shot( prompt )
 			
 			this.dialog_title( resp.title )
 			this.digest( resp.digest )
@@ -59,6 +57,12 @@ namespace $.$$ {
 		override prompt_submit() {
 			this.history([ ... this.history(), this.prompt_text() ])
 			this.prompt_text( '' )
+		}
+		
+		override reset() {
+			this.dialog_title( null )
+			this.digest( '' )
+			this.history( [] )
 		}
 		
 	}
