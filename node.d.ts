@@ -4640,6 +4640,7 @@ declare namespace $ {
 		context( ): ReturnType< $hd_bot['rules'] >
 		Theme( ): $mol_theme_auto
 		dialog_title( next?: string ): string
+		title( ): ReturnType< $hd_bot['dialog_title'] >
 		communication( ): any
 		Status( ): $mol_status
 		message_text( id: any): string
