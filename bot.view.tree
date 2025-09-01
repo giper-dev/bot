@@ -8,7 +8,7 @@ $hd_bot $mol_book2
 		<= Dialog $mol_page
 			title_content /
 				\🤖 
-				<= dialog_title? @ \Hyper Bot
+				<= title <= dialog_title? @ \Hyper Bot
 			body_content /
 				<= Status $mol_status
 					status <= communication null
