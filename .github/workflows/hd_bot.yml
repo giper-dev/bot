@@ -4,6 +4,7 @@ permissions: write-all
 
 on:
   workflow_dispatch:
+  repository_dispatch:
   push:
   pull_request:
   schedule:
