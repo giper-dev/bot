@@ -32,5 +32,6 @@ jobs:
     steps:
     - uses: peter-evans/repository-dispatch@v3
       with:
+        token: ${{ secrets.GH_PAT }}
         repository: hd4ru/space
         event-type: dependency_changed
