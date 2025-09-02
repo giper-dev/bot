@@ -5,6 +5,7 @@ $hd_bot $mol_book2
 	plugins /
 		<= Theme $mol_theme_auto
 	pages /
+		<= Space $hd_space_frame
 		<= Dialog $mol_page
 			title_content /
 				\🤖 
