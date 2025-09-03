@@ -22,8 +22,11 @@ namespace $.$$ {
 			return this.history().map( (_,i)=> this.Message(i) )
 		}
 		
+		@ $mol_mem_key
 		override message_text( index: number ): string {
-			return this.message_name( index ) + ' ' + ( this.history()[ index ] ?? '' )
+			let text = this.history()[ index ] ?? ''
+			if( '`#>|='.includes( text[0] ) ) text = '\n' + text // markdown blocks
+			return this.message_name( index ) + ' ' + text
 		}
 		
 		message_name( index: number ): string {
