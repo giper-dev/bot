@@ -11266,7 +11266,10 @@ var $;
                 return this.history().map((_, i) => this.Message(i));
             }
             message_text(index) {
-                return this.message_name(index) + ' ' + (this.history()[index] ?? '');
+                let text = this.history()[index] ?? '';
+                if ('`#>|='.includes(text[0]))
+                    text = '\n' + text;
+                return this.message_name(index) + ' ' + text;
             }
             message_name(index) {
                 return index % 2 ? '🤖' : '🙂';
@@ -11306,6 +11309,9 @@ var $;
         __decorate([
             $mol_mem
         ], $hd_bot.prototype, "history", null);
+        __decorate([
+            $mol_mem_key
+        ], $hd_bot.prototype, "message_text", null);
         __decorate([
             $mol_mem
         ], $hd_bot.prototype, "rules", null);
