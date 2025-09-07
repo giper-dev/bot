@@ -1,5 +1,5 @@
 {
-  "name": "hd_bot",
+  "name": "gd_bot",
   "version": "0.0.1",
   "exports": {
     "node": {
@@ -15,8 +15,8 @@
   "browser": "./web.js",
   "types": "./web.d.ts",
   "keywords": [
-    "$hd_bot",
-    "$hd",
+    "$gd_bot",
+    "$gd",
     "$mol_book2",
     "$mol",
     "$mol_scroll",
@@ -148,8 +148,8 @@
     "$mol_layer",
     "$mol_type_enforce",
     "$mol_theme_auto",
-    "$hd_space_frame",
-    "$hd_space",
+    "$gd_web_frame",
+    "$gd_web",
     "$mol_frame",
     "$mol_embed_native",
     "$mol_embed",
