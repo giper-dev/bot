@@ -1,4 +1,4 @@
-name: $hd_bot
+name: $gd_bot
 
 permissions: write-all
 
@@ -19,9 +19,9 @@ jobs:
     
     - uses: hyoo-ru/mam_build@master2
       with:
-        package: 'hd/bot'
+        package: 'gd/bot'
     
     - uses: hyoo-ru/gh-deploy@v4.4.1
       if: github.ref == 'refs/heads/master'
       with:
-        folder: 'hd/bot/-'
+        folder: 'gd/bot/-'

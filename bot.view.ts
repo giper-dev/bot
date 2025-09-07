@@ -1,5 +1,5 @@
 namespace $.$$ {
-	export class $hd_bot extends $.$hd_bot {
+	export class $gd_bot extends $.$gd_bot {
 		
 		override dialog_title( next?: string | null ) {
 			return this.$.$mol_state_session.value( 'title', next ) ?? super.dialog_title()

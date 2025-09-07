@@ -1,7 +1,7 @@
 {
-	"$hd_bot_dialog_title": "Гипер Бот",
-	"$hd_bot_Prompt_text_hint": "Спроси что-нибудь",
-	"$hd_bot_Prompt_submit_hint": "Отправить",
-	"$hd_bot_Reset_hint": "Сбросить",
-	"$hd_bot_Context_title": "Резюме"
+	"$gd_bot_dialog_title": "Гипер Бот",
+	"$gd_bot_Prompt_text_hint": "Спроси что-нибудь",
+	"$gd_bot_Prompt_submit_hint": "Отправить",
+	"$gd_bot_Reset_hint": "Сбросить",
+	"$gd_bot_Context_title": "Резюме"
 }
