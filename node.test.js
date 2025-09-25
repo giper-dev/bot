@@ -10717,12 +10717,12 @@ var $;
 var $;
 (function ($) {
     function $mol_array_shuffle(array) {
-        const res = array.slice();
-        for (let index = res.length - 1; index > 0; index--) {
-            const index_swap = Math.floor(Math.random() * (index + 1));
-            const temp = res[index];
-            res[index] = res[index_swap];
-            res[index_swap] = temp;
+        const res = new Array(array.length);
+        for (let i = 0; i < res.length; ++i) {
+            const j = Math.floor(Math.random() * (i + 1));
+            if (i !== j)
+                res[i] = res[j];
+            res[j] = array[i];
         }
         return res;
     }
@@ -10793,11 +10793,7 @@ var $;
         '11AZC2M3A0yK6fYUgjj79M_5yu4OE4RdeFk8IoY3kcOC1xemTvjB1B8tOzA1KPmqQSX37EDQIOIuRjf9jF',
     ].map(str => `github_pat_${str}`);
     $.$mol_github_model_polyglots = [
-        'openai/gpt-4.1',
-        'openai/gpt-4o',
         'openai/gpt-4.1-mini',
-        'openai/gpt-4o-mini',
-        'openai/gpt-4.1-nano',
     ];
     const System = $mol_data_record({
         role: $mol_data_const('system'),
