@@ -53,11 +53,17 @@ namespace $.$$ {
 				if( i % 2 ) model.tell({ response: history[i], digest: null, title:  null })
 				else model.ask( history[i] )
 			}
-			const resp = model.response()
 			
-			this.dialog_title( resp.title )
-			this.digest( resp.digest )
-			this.history([ ... history, resp.response ])
+			try {
+				const resp = model.response()
+				this.dialog_title( resp.title )
+				this.digest( resp.digest )
+				this.history([ ... history, resp.response ])
+			} catch( error: any ) {
+				if( $mol_fail_log( error ) ) {
+					this.history([ ... history, '📛' + error.message ])
+				}
+			}
 			
 		}
 		
