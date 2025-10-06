@@ -42,7 +42,7 @@ $gd_bot $mol_book2
 				<= Donate $mol_link_donate
 					uri \https://boosty.to/hyoo
 				<= Support $mol_link_support
-					uri \https://t.me/giper-dev/276
+					uri \https://t.me/giper_web/276
 				<= Lights $mol_lights_toggle
 			body /
 				- <= Digest_block $mol_labeler
