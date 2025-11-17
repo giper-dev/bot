@@ -1,5 +1,5 @@
 {
-  "name": "gd_bot",
+  "name": "giper_bot",
   "version": "0.0.1",
   "exports": {
     "node": {
@@ -15,8 +15,8 @@
   "browser": "./web.js",
   "types": "./web.d.ts",
   "keywords": [
-    "$gd_bot",
-    "$gd",
+    "$giper_bot",
+    "$giper",
     "$mol_book2",
     "$mol",
     "$mol_scroll",
@@ -149,8 +149,8 @@
     "$mol_layer",
     "$mol_type_enforce",
     "$mol_theme_auto",
-    "$gd_web_frame",
-    "$gd_web",
+    "$giper_web_frame",
+    "$giper_web",
     "$mol_frame",
     "$mol_embed_native",
     "$mol_embed",

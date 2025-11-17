@@ -1645,7 +1645,7 @@ declare namespace $ {
 
 declare namespace $ {
 
-	export class $gd_web_frame extends $mol_frame {
+	export class $giper_web_frame extends $mol_frame {
 		uri( ): string
 		query( ): string
 	}
@@ -1654,7 +1654,7 @@ declare namespace $ {
 
 //# sourceMappingURL=frame.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $gd_web_frame extends $.$gd_web_frame {
+    class $giper_web_frame extends $.$giper_web_frame {
         uri(): string;
     }
 }
@@ -4675,145 +4675,145 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_status__status_gd_bot_1 = $mol_type_enforce<
-		ReturnType< $gd_bot['communication'] >
+	type $mol_status__status_giper_bot_1 = $mol_type_enforce<
+		ReturnType< $giper_bot['communication'] >
 		,
 		ReturnType< $mol_status['status'] >
 	>
-	type $mol_text__text_gd_bot_2 = $mol_type_enforce<
-		ReturnType< $gd_bot['message_text'] >
+	type $mol_text__text_giper_bot_2 = $mol_type_enforce<
+		ReturnType< $giper_bot['message_text'] >
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_view__sub_gd_bot_3 = $mol_type_enforce<
+	type $mol_view__sub_giper_bot_3 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_list__rows_gd_bot_4 = $mol_type_enforce<
-		ReturnType< $gd_bot['messages'] >
+	type $mol_list__rows_giper_bot_4 = $mol_type_enforce<
+		ReturnType< $giper_bot['messages'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_view__sub_gd_bot_5 = $mol_type_enforce<
+	type $mol_view__sub_giper_bot_5 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_textarea__hint_gd_bot_6 = $mol_type_enforce<
+	type $mol_textarea__hint_giper_bot_6 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_textarea['hint'] >
 	>
-	type $mol_textarea__value_gd_bot_7 = $mol_type_enforce<
-		ReturnType< $gd_bot['prompt_text'] >
+	type $mol_textarea__value_giper_bot_7 = $mol_type_enforce<
+		ReturnType< $giper_bot['prompt_text'] >
 		,
 		ReturnType< $mol_textarea['value'] >
 	>
-	type $mol_textarea__submit_gd_bot_8 = $mol_type_enforce<
-		ReturnType< $gd_bot['prompt_submit'] >
+	type $mol_textarea__submit_giper_bot_8 = $mol_type_enforce<
+		ReturnType< $giper_bot['prompt_submit'] >
 		,
 		ReturnType< $mol_textarea['submit'] >
 	>
-	type $mol_button_minor__hint_gd_bot_9 = $mol_type_enforce<
+	type $mol_button_minor__hint_giper_bot_9 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click_gd_bot_10 = $mol_type_enforce<
-		ReturnType< $gd_bot['prompt_submit'] >
+	type $mol_button_minor__click_giper_bot_10 = $mol_type_enforce<
+		ReturnType< $giper_bot['prompt_submit'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub_gd_bot_11 = $mol_type_enforce<
+	type $mol_button_minor__sub_giper_bot_11 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_page__title_content_gd_bot_12 = $mol_type_enforce<
+	type $mol_page__title_content_giper_bot_12 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['title_content'] >
 	>
-	type $mol_page__body_content_gd_bot_13 = $mol_type_enforce<
+	type $mol_page__body_content_giper_bot_13 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body_content'] >
 	>
-	type $mol_page__foot_gd_bot_14 = $mol_type_enforce<
+	type $mol_page__foot_giper_bot_14 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['foot'] >
 	>
-	type $mol_button_minor__hint_gd_bot_15 = $mol_type_enforce<
+	type $mol_button_minor__hint_giper_bot_15 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click_gd_bot_16 = $mol_type_enforce<
-		ReturnType< $gd_bot['reset'] >
+	type $mol_button_minor__click_giper_bot_16 = $mol_type_enforce<
+		ReturnType< $giper_bot['reset'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub_gd_bot_17 = $mol_type_enforce<
+	type $mol_button_minor__sub_giper_bot_17 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_link_source__uri_gd_bot_18 = $mol_type_enforce<
+	type $mol_link_source__uri_giper_bot_18 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_source['uri'] >
 	>
-	type $mol_link_donate__uri_gd_bot_19 = $mol_type_enforce<
+	type $mol_link_donate__uri_giper_bot_19 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_donate['uri'] >
 	>
-	type $mol_link_support__uri_gd_bot_20 = $mol_type_enforce<
+	type $mol_link_support__uri_giper_bot_20 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_support['uri'] >
 	>
-	type $mol_text__text_gd_bot_21 = $mol_type_enforce<
-		ReturnType< $gd_bot['digest'] >
+	type $mol_text__text_giper_bot_21 = $mol_type_enforce<
+		ReturnType< $giper_bot['digest'] >
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_page__title_gd_bot_22 = $mol_type_enforce<
+	type $mol_page__title_giper_bot_22 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_gd_bot_23 = $mol_type_enforce<
+	type $mol_page__tools_giper_bot_23 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__body_gd_bot_24 = $mol_type_enforce<
+	type $mol_page__body_giper_bot_24 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_github_model__params_gd_bot_25 = $mol_type_enforce<
+	type $mol_github_model__params_giper_bot_25 = $mol_type_enforce<
 		({ 
 			'temperature': number,
 		}) 
 		,
 		ReturnType< $mol_github_model['params'] >
 	>
-	type $mol_github_model__rules_gd_bot_26 = $mol_type_enforce<
-		ReturnType< $gd_bot['context'] >
+	type $mol_github_model__rules_giper_bot_26 = $mol_type_enforce<
+		ReturnType< $giper_bot['context'] >
 		,
 		ReturnType< $mol_github_model['rules'] >
 	>
-	export class $gd_bot extends $mol_book2 {
+	export class $giper_bot extends $mol_book2 {
 		rules( ): string
-		context( ): ReturnType< $gd_bot['rules'] >
+		context( ): ReturnType< $giper_bot['rules'] >
 		Theme( ): $mol_theme_auto
-		Space( ): $gd_web_frame
+		Space( ): $giper_web_frame
 		dialog_title( next?: string ): string
-		title( ): ReturnType< $gd_bot['dialog_title'] >
+		title( ): ReturnType< $giper_bot['dialog_title'] >
 		communication( ): any
 		Status( ): $mol_status
 		message_text( id: any): string
@@ -4848,7 +4848,7 @@ declare namespace $ {
 
 //# sourceMappingURL=bot.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $gd_bot extends $.$gd_bot {
+    class $giper_bot extends $.$giper_bot {
         dialog_title(next?: string | null): string;
         digest(next?: string): string;
         prompt_text(next?: string): string;

@@ -5670,7 +5670,7 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$gd_web_frame) = class $gd_web_frame extends ($.$mol_frame) {
+	($.$giper_web_frame) = class $giper_web_frame extends ($.$mol_frame) {
 		uri(){
 			return "https://web.giper.dev/#mol_lights={lights}/current={current}/query={query}";
 		}
@@ -5689,7 +5689,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $gd_web_frame extends $.$gd_web_frame {
+        class $giper_web_frame extends $.$giper_web_frame {
             uri() {
                 return super.uri()
                     .replace('{lights}', String(this.$.$mol_lights()))
@@ -5699,8 +5699,8 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $gd_web_frame.prototype, "uri", null);
-        $$.$gd_web_frame = $gd_web_frame;
+        ], $giper_web_frame.prototype, "uri", null);
+        $$.$giper_web_frame = $giper_web_frame;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
@@ -5708,7 +5708,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("gd/web/frame/frame.view.css", "/* @keyframes gd_web_frame_show {\n\tfrom {\n\t\topacity: 0;\n\t}\n}\n\n[gd_web_frame] {\n\tanimation: 5s -1s ease-in gd_web_frame_show;\n} */\n");
+    $mol_style_attach("giper/web/frame/frame.view.css", "/* @keyframes giper_web_frame_show {\n\tfrom {\n\t\topacity: 0;\n\t}\n}\n\n[giper_web_frame] {\n\tanimation: 5s -1s ease-in giper_web_frame_show;\n} */\n");
 })($ || ($ = {}));
 
 ;
@@ -5717,7 +5717,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        $mol_style_define($gd_web_frame, {
+        $mol_style_define($giper_web_frame, {
             flex: {
                 basis: '4rem',
                 shrink: 0,
@@ -11250,7 +11250,7 @@ var $;
 "use strict";
 
 ;
-	($.$gd_bot) = class $gd_bot extends ($.$mol_book2) {
+	($.$giper_bot) = class $giper_bot extends ($.$mol_book2) {
 		rules(){
 			return "Ты - Гипер Бот, универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный и лаконичный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле \"response\" должен находиться собственно ответ в виде строки. В поле \"confidence\" отрази степень своей увернности в истинности ответа в диапазоне от 0 до 1. В поле \"digest\" должен находиться краткий пересказ всего вашего диалога от начала до конца. Говоря о пользователе в пересказе (и только в нём) используй эмодзи 🙂 вместо слова \"пользователь\", а вместо \"Гипер Бота\" - используй эмозди 🤖. В поле \"title\" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение целиком. Отвечай всегда на языке с кодом {lang}, если пользователь не попросил иное. Далее идёт пересказ прошлых ваших сообщений, не потеряй его в своём пересказе:";
 		}
@@ -11262,12 +11262,12 @@ var $;
 			return obj;
 		}
 		Space(){
-			const obj = new this.$.$gd_web_frame();
+			const obj = new this.$.$giper_web_frame();
 			return obj;
 		}
 		dialog_title(next){
 			if(next !== undefined) return next;
-			return (this.$.$mol_locale.text("$gd_bot_dialog_title"));
+			return (this.$.$mol_locale.text("$giper_bot_dialog_title"));
 		}
 		title(){
 			return (this.dialog_title());
@@ -11316,7 +11316,7 @@ var $;
 		}
 		Prompt_text(){
 			const obj = new this.$.$mol_textarea();
-			(obj.hint) = () => ((this.$.$mol_locale.text("$gd_bot_Prompt_text_hint")));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$giper_bot_Prompt_text_hint")));
 			(obj.value) = (next) => ((this.prompt_text(next)));
 			(obj.submit) = (next) => ((this.prompt_submit(next)));
 			return obj;
@@ -11327,7 +11327,7 @@ var $;
 		}
 		Prompt_submit(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => ((this.$.$mol_locale.text("$gd_bot_Prompt_submit_hint")));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$giper_bot_Prompt_submit_hint")));
 			(obj.click) = (next) => ((this.prompt_submit(next)));
 			(obj.sub) = () => ([(this.Prompt_submit_icon())]);
 			return obj;
@@ -11353,7 +11353,7 @@ var $;
 		}
 		Reset(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => ((this.$.$mol_locale.text("$gd_bot_Reset_hint")));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$giper_bot_Reset_hint")));
 			(obj.click) = (next) => ((this.reset(next)));
 			(obj.sub) = () => ([(this.Reset_icon())]);
 			return obj;
@@ -11388,7 +11388,7 @@ var $;
 		}
 		Context(){
 			const obj = new this.$.$mol_page();
-			(obj.title) = () => ((this.$.$mol_locale.text("$gd_bot_Context_title")));
+			(obj.title) = () => ((this.$.$mol_locale.text("$giper_bot_Context_title")));
 			(obj.tools) = () => ([
 				(this.Reset()), 
 				(this.Sources()), 
@@ -11416,31 +11416,31 @@ var $;
 			return [(this.Context())];
 		}
 	};
-	($mol_mem(($.$gd_bot.prototype), "Theme"));
-	($mol_mem(($.$gd_bot.prototype), "Space"));
-	($mol_mem(($.$gd_bot.prototype), "dialog_title"));
-	($mol_mem(($.$gd_bot.prototype), "Status"));
-	($mol_mem_key(($.$gd_bot.prototype), "Message_text"));
-	($mol_mem_key(($.$gd_bot.prototype), "Message"));
-	($mol_mem(($.$gd_bot.prototype), "Messages"));
-	($mol_mem(($.$gd_bot.prototype), "Avatar"));
-	($mol_mem(($.$gd_bot.prototype), "prompt_text"));
-	($mol_mem(($.$gd_bot.prototype), "prompt_submit"));
-	($mol_mem(($.$gd_bot.prototype), "Prompt_text"));
-	($mol_mem(($.$gd_bot.prototype), "Prompt_submit_icon"));
-	($mol_mem(($.$gd_bot.prototype), "Prompt_submit"));
-	($mol_mem(($.$gd_bot.prototype), "Dialog"));
-	($mol_mem(($.$gd_bot.prototype), "reset"));
-	($mol_mem(($.$gd_bot.prototype), "Reset_icon"));
-	($mol_mem(($.$gd_bot.prototype), "Reset"));
-	($mol_mem(($.$gd_bot.prototype), "Sources"));
-	($mol_mem(($.$gd_bot.prototype), "Donate"));
-	($mol_mem(($.$gd_bot.prototype), "Support"));
-	($mol_mem(($.$gd_bot.prototype), "Lights"));
-	($mol_mem(($.$gd_bot.prototype), "digest"));
-	($mol_mem(($.$gd_bot.prototype), "Digest"));
-	($mol_mem(($.$gd_bot.prototype), "Context"));
-	($mol_mem(($.$gd_bot.prototype), "Model"));
+	($mol_mem(($.$giper_bot.prototype), "Theme"));
+	($mol_mem(($.$giper_bot.prototype), "Space"));
+	($mol_mem(($.$giper_bot.prototype), "dialog_title"));
+	($mol_mem(($.$giper_bot.prototype), "Status"));
+	($mol_mem_key(($.$giper_bot.prototype), "Message_text"));
+	($mol_mem_key(($.$giper_bot.prototype), "Message"));
+	($mol_mem(($.$giper_bot.prototype), "Messages"));
+	($mol_mem(($.$giper_bot.prototype), "Avatar"));
+	($mol_mem(($.$giper_bot.prototype), "prompt_text"));
+	($mol_mem(($.$giper_bot.prototype), "prompt_submit"));
+	($mol_mem(($.$giper_bot.prototype), "Prompt_text"));
+	($mol_mem(($.$giper_bot.prototype), "Prompt_submit_icon"));
+	($mol_mem(($.$giper_bot.prototype), "Prompt_submit"));
+	($mol_mem(($.$giper_bot.prototype), "Dialog"));
+	($mol_mem(($.$giper_bot.prototype), "reset"));
+	($mol_mem(($.$giper_bot.prototype), "Reset_icon"));
+	($mol_mem(($.$giper_bot.prototype), "Reset"));
+	($mol_mem(($.$giper_bot.prototype), "Sources"));
+	($mol_mem(($.$giper_bot.prototype), "Donate"));
+	($mol_mem(($.$giper_bot.prototype), "Support"));
+	($mol_mem(($.$giper_bot.prototype), "Lights"));
+	($mol_mem(($.$giper_bot.prototype), "digest"));
+	($mol_mem(($.$giper_bot.prototype), "Digest"));
+	($mol_mem(($.$giper_bot.prototype), "Context"));
+	($mol_mem(($.$giper_bot.prototype), "Model"));
 
 
 ;
@@ -11472,7 +11472,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $gd_bot extends $.$gd_bot {
+        class $giper_bot extends $.$giper_bot {
             dialog_title(next) {
                 return this.$.$mol_state_session.value('title', next) ?? super.dialog_title();
             }
@@ -11538,17 +11538,17 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $gd_bot.prototype, "history", null);
+        ], $giper_bot.prototype, "history", null);
         __decorate([
             $mol_mem_key
-        ], $gd_bot.prototype, "message_text", null);
+        ], $giper_bot.prototype, "message_text", null);
         __decorate([
             $mol_mem
-        ], $gd_bot.prototype, "rules", null);
+        ], $giper_bot.prototype, "rules", null);
         __decorate([
             $mol_mem
-        ], $gd_bot.prototype, "communication", null);
-        $$.$gd_bot = $gd_bot;
+        ], $giper_bot.prototype, "communication", null);
+        $$.$giper_bot = $giper_bot;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
@@ -11559,13 +11559,13 @@ var $;
     var $$;
     (function ($$) {
         const { url, linear_gradient, hsla } = $mol_style_func;
-        $mol_style_define($gd_bot, {
+        $mol_style_define($giper_bot, {
             background: {
                 size: ['cover'],
                 position: 'center',
                 image: [
                     [linear_gradient($mol_theme.spirit)],
-                    [url('gd/bot/logo/back.jpg')],
+                    [url('giper/bot/logo/back.jpg')],
                 ]
             },
             Dialog: {
