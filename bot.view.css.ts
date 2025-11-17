@@ -2,14 +2,14 @@ namespace $.$$ {
 	
 	const { url, linear_gradient, hsla } = $mol_style_func
 	
-	$mol_style_define( $gd_bot, {
+	$mol_style_define( $giper_bot, {
 		
 		background: {
 			size: [ 'cover' ],
 			position: 'center',
 			image: [
 				[ linear_gradient( $mol_theme.spirit ) ],
-				[ url( 'gd/bot/logo/back.jpg' ) ],
+				[ url( 'giper/bot/logo/back.jpg' ) ],
 			]
 		},
 		

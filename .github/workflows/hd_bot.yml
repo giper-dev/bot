@@ -1,4 +1,4 @@
-name: $gd_bot
+name: $giper_bot
 
 permissions: write-all
 
@@ -19,9 +19,9 @@ jobs:
     
     - uses: hyoo-ru/mam_build@master2
       with:
-        package: 'gd/bot'
+        package: 'giper/bot'
     
     - uses: hyoo-ru/gh-deploy@v4.4.1
       if: github.ref == 'refs/heads/master'
       with:
-        folder: 'gd/bot/-'
+        folder: 'giper/bot/-'
