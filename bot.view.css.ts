@@ -34,7 +34,11 @@ namespace $.$$ {
 				paddingTop: 'unset',
 			},
 		},
-
+		Message_images: {
+			Add: {
+				display: 'none',
+			},
+		},
 		Avatar: {
 			padding: $mol_gap.text,
 		},
