@@ -17,8 +17,13 @@ $giper_bot $mol_book2
 					rows <= messages /
 						<= Message*0 $mol_view sub /
 							<= Message_text* $mol_text text <= message_text* \
+							<= Message_images* $mol_attach
+								items? <= message_media_list* /
 			foot /
 				<= Avatar $mol_view sub / \🙂
+					-- тут я достал items для удобства получения в ts
+				<= Attach $mol_attach 
+					items? <=> message_media? / 
 				<= Prompt_text $mol_textarea
 					hint @ \Ask something
 					value? <=> prompt_text? \
