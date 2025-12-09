@@ -19,6 +19,7 @@ $giper_bot $mol_book2
 							<= Message_text* $mol_text text <= message_text* \
 			foot /
 				<= Avatar $mol_view sub / \🙂
+				<= Attach $mol_attach 
 				<= Prompt_text $mol_textarea
 					hint @ \Ask something
 					value? <=> prompt_text? \

@@ -1,20 +1,15 @@
 namespace $.$$ {
-	
-	const { url, linear_gradient, hsla } = $mol_style_func
-	
-	$mol_style_define( $giper_bot, {
-		
+	const { url, linear_gradient } = $mol_style_func
+
+	$mol_style_define($giper_bot, {
 		background: {
-			size: [ 'cover' ],
+			size: ['cover'],
 			position: 'center',
-			image: [
-				[ linear_gradient( $mol_theme.spirit ) ],
-				[ url( 'giper/bot/logo/back.jpg' ) ],
-			]
+			image: [[linear_gradient($mol_theme.spirit)], [url('giper/bot/logo/back.jpg')]],
 		},
-		
+
 		Dialog: {
-			margin: [ 0, 'auto' ],
+			margin: [0, 'auto'],
 			flex: {
 				basis: '60rem',
 			},
@@ -29,17 +24,27 @@ namespace $.$$ {
 				padding: $mol_gap.block,
 			},
 		},
-		
+		Attach: {
+			Add: {
+				width: '1rem',
+				height: '1rem',
+			},
+			Content: {
+				paddingBottom: 'unset',
+				paddingTop: 'unset',
+			},
+		},
+
 		Avatar: {
 			padding: $mol_gap.text,
 		},
-		
+
 		Prompt_text: {
 			flex: {
 				shrink: 1,
 			},
 		},
-		
+
 		Context: {
 			flex: {
 				basis: '30rem',
@@ -47,8 +52,6 @@ namespace $.$$ {
 			Body_content: {
 				gap: $mol_gap.block,
 			},
-		}
-		
-	} )
-	
+		},
+	})
 }
