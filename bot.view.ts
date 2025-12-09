@@ -68,14 +68,38 @@ namespace $.$$ {
 		}
 
 		override prompt_submit() {
-			this.history([...this.history(), ...$mol_maybe(this.prompt_text() || null)])
+			const text = this.prompt_text()
+			const media = this.message_media() // а тут получаю
+
+			const newIndex = this.history().length
+
+			if (media.length > 0) {
+				const storage = this.media_storage()
+				this.media_storage({ ...storage, [newIndex]: [...media] })
+			}
+
+			this.history([...this.history(), ...$mol_maybe(text || null)])
+
 			this.prompt_text('')
+			this.message_media([])
 		}
 
 		override reset() {
 			this.dialog_title(null)
 			this.digest('')
 			this.history([])
+			this.media_storage({})
+			this.message_media([])
+		}
+
+		@$mol_mem
+		media_storage(next?: Record<number, string[]>) {
+			return this.$.$mol_state_session.value('media_storage', next) ?? {}
+		}
+
+		@$mol_mem_key
+		override message_media_list(index: number): string[] {
+			return this.media_storage()[index] ?? []
 		}
 	}
 }
