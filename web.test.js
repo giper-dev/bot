@@ -3361,39 +3361,16 @@ var $;
 var $;
 (function ($) {
     $mol_test({
-        'Is null'() {
-            $mol_data_nullable($mol_data_number)(null);
+        'Is first'() {
+            $mol_data_variant($mol_data_number, $mol_data_string)(0);
         },
-        'Is not null'() {
-            $mol_data_nullable($mol_data_number)(0);
+        'Is second'() {
+            $mol_data_variant($mol_data_number, $mol_data_string)('');
         },
-        'Is undefined'() {
+        'Is false'() {
             $mol_assert_fail(() => {
-                const Type = $mol_data_nullable($mol_data_number);
-                Type(undefined);
-            }, 'undefined is not a number');
-        },
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    const Age = $mol_data_optional($mol_data_number);
-    const Age_or_zero = $mol_data_optional($mol_data_number, () => 0);
-    $mol_test({
-        'Is not present'() {
-            $mol_assert_equal(Age(undefined), undefined);
-        },
-        'Is present'() {
-            $mol_assert_equal(Age(0), 0);
-        },
-        'Fallbacked'() {
-            $mol_assert_equal(Age_or_zero(undefined), 0);
-        },
-        'Is null'() {
-            $mol_assert_fail(() => Age(null), 'null is not a number');
+                $mol_data_variant($mol_data_number, $mol_data_string)(false);
+            }, 'false is not any of variants');
         },
     });
 })($ || ($ = {}));
@@ -3432,16 +3409,39 @@ var $;
 var $;
 (function ($) {
     $mol_test({
-        'Is first'() {
-            $mol_data_variant($mol_data_number, $mol_data_string)(0);
+        'Is null'() {
+            $mol_data_nullable($mol_data_number)(null);
         },
-        'Is second'() {
-            $mol_data_variant($mol_data_number, $mol_data_string)('');
+        'Is not null'() {
+            $mol_data_nullable($mol_data_number)(0);
         },
-        'Is false'() {
+        'Is undefined'() {
             $mol_assert_fail(() => {
-                $mol_data_variant($mol_data_number, $mol_data_string)(false);
-            }, 'false is not any of variants');
+                const Type = $mol_data_nullable($mol_data_number);
+                Type(undefined);
+            }, 'undefined is not a number');
+        },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    const Age = $mol_data_optional($mol_data_number);
+    const Age_or_zero = $mol_data_optional($mol_data_number, () => 0);
+    $mol_test({
+        'Is not present'() {
+            $mol_assert_equal(Age(undefined), undefined);
+        },
+        'Is present'() {
+            $mol_assert_equal(Age(0), 0);
+        },
+        'Fallbacked'() {
+            $mol_assert_equal(Age_or_zero(undefined), 0);
+        },
+        'Is null'() {
+            $mol_assert_fail(() => Age(null), 'null is not a number');
         },
     });
 })($ || ($ = {}));

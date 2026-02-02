@@ -1,7 +1,7 @@
 {
 	"$giper_bot_Context_title": "Summary",
 	"$giper_bot_Prompt_submit_hint": "Send",
-	"$giper_bot_Prompt_text_hint": "Ask something",
+	"$giper_bot_Prompt_text_hint": "Ask Giper Bot...",
 	"$giper_bot_Reset_hint": "Reset",
 	"$giper_bot_dialog_title": "Giper Bot",
 	"$mol_lights_toggle_hint": "Toggle lights",

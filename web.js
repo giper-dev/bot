@@ -9189,6 +9189,225 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$mol_icon_upload) = class $mol_icon_upload extends ($.$mol_icon) {
+		path(){
+			return "M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_button_open) = class $mol_button_open extends ($.$mol_button_minor) {
+		Icon(){
+			const obj = new this.$.$mol_icon_upload();
+			return obj;
+		}
+		files(next){
+			if(next !== undefined) return next;
+			return [];
+		}
+		files_handled(next){
+			return (this.files(next));
+		}
+		accept(){
+			return "";
+		}
+		multiple(){
+			return true;
+		}
+		Native(){
+			const obj = new this.$.$mol_button_open_native();
+			(obj.files) = (next) => ((this.files_handled(next)));
+			(obj.accept) = () => ((this.accept()));
+			(obj.multiple) = () => ((this.multiple()));
+			return obj;
+		}
+		sub(){
+			return [(this.Icon()), (this.Native())];
+		}
+	};
+	($mol_mem(($.$mol_button_open.prototype), "Icon"));
+	($mol_mem(($.$mol_button_open.prototype), "files"));
+	($mol_mem(($.$mol_button_open.prototype), "Native"));
+	($.$mol_button_open_native) = class $mol_button_open_native extends ($.$mol_view) {
+		accept(){
+			return "";
+		}
+		multiple(){
+			return true;
+		}
+		picked(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		dom_name(){
+			return "input";
+		}
+		files(next){
+			if(next !== undefined) return next;
+			return [];
+		}
+		attr(){
+			return {
+				"type": "file", 
+				"accept": (this.accept()), 
+				"multiple": (this.multiple())
+			};
+		}
+		event(){
+			return {"change": (next) => (this.picked(next))};
+		}
+	};
+	($mol_mem(($.$mol_button_open_native.prototype), "picked"));
+	($mol_mem(($.$mol_button_open_native.prototype), "files"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_button_open extends $.$mol_button_open {
+            files_handled(next) {
+                try {
+                    const files = this.files(next);
+                    this.status([null]);
+                    return files;
+                }
+                catch (error) {
+                    Promise.resolve().then(() => this.status([error]));
+                    $mol_fail_hidden(error);
+                }
+            }
+        }
+        $$.$mol_button_open = $mol_button_open;
+        class $mol_button_open_native extends $.$mol_button_open_native {
+            dom_node() {
+                return super.dom_node();
+            }
+            picked() {
+                const files = this.dom_node().files;
+                if (!files || !files.length)
+                    return;
+                this.files([...files]);
+            }
+        }
+        $$.$mol_button_open_native = $mol_button_open_native;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/open/open.view.css", "[mol_button_open_native] {\n\tposition: absolute;\n\tleft: 0;\n\ttop: -100%;\n\twidth: 100%;\n\theight: 200%;\n\tcursor: pointer;\n\topacity: 0;\n}\n");
+})($ || ($ = {}));
+
+;
+	($.$mol_attach) = class $mol_attach extends ($.$mol_view) {
+		item_drop(id, next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		item_uri(id){
+			return "";
+		}
+		Image(id){
+			const obj = new this.$.$mol_image();
+			(obj.title) = () => ("");
+			(obj.uri) = () => ((this.item_uri(id)));
+			return obj;
+		}
+		Item(id){
+			const obj = new this.$.$mol_button_minor();
+			(obj.click) = (next) => ((this.item_drop(id, next)));
+			(obj.sub) = () => ([(this.Image(id))]);
+			return obj;
+		}
+		attach_title(){
+			return "";
+		}
+		attach_new(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Add(){
+			const obj = new this.$.$mol_button_open();
+			(obj.title) = () => ((this.attach_title()));
+			(obj.files) = (next) => ((this.attach_new(next)));
+			return obj;
+		}
+		content(){
+			return [(this.Item("0")), (this.Add())];
+		}
+		items(next){
+			if(next !== undefined) return next;
+			return [];
+		}
+		sub(){
+			return (this.content());
+		}
+	};
+	($mol_mem_key(($.$mol_attach.prototype), "item_drop"));
+	($mol_mem_key(($.$mol_attach.prototype), "Image"));
+	($mol_mem_key(($.$mol_attach.prototype), "Item"));
+	($mol_mem(($.$mol_attach.prototype), "attach_new"));
+	($mol_mem(($.$mol_attach.prototype), "Add"));
+	($mol_mem(($.$mol_attach.prototype), "items"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_attach extends $.$mol_attach {
+            attach_new(files) {
+                this.items([
+                    ...this.items(),
+                    ...files.map(file => URL.createObjectURL(file)),
+                ]);
+            }
+            content() {
+                return [...this.items().map((_, i) => this.Item(i)), this.Add()];
+            }
+            item_uri(index) {
+                return this.items()[index];
+            }
+            item_drop(index, event) {
+                const items = this.items();
+                this.items([
+                    ...items.slice(0, index),
+                    ...items.slice(index + 1),
+                ]);
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_attach.prototype, "content", null);
+        $$.$mol_attach = $mol_attach;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/attach/attach.view.css", "[mol_attach] {\n\tflex-wrap: wrap;\n}\n\n[mol_attach_item] {\n\taspect-ratio: 1;\n\theight: 5rem;\n\tborder-radius: var(--mol_gap_round);\n\tpadding: 0;\n}\n[mol_attach_item]:hover {\n\topacity: .5;\n}\n\n[mol_attach_image] {\n\tbackground: var(--mol_theme_card);\n\twidth: 100%;\n\theight: 100%;\n}\n\n[mol_attach_add] {\n\tbackground: var(--mol_theme_card);\n\taspect-ratio: 1;\n\theight: 5rem;\n\talign-items: center;\n\tjustify-content: center;\n\toverflow: hidden;\n}\n");
+})($ || ($ = {}));
+
+;
 	($.$mol_hotkey) = class $mol_hotkey extends ($.$mol_plugin) {
 		keydown(next){
 			if(next !== undefined) return next;
@@ -10319,29 +10538,29 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    function $mol_data_nullable(sub) {
+    function $mol_data_variant(...sub) {
         return $mol_data_setup((val) => {
-            if (val === null)
-                return null;
-            return sub(val);
+            const errors = [];
+            for (const type of sub) {
+                let hidden = $.$mol_fail_hidden;
+                try {
+                    $.$mol_fail = $.$mol_fail_hidden;
+                    return type(val);
+                }
+                catch (error) {
+                    $.$mol_fail = hidden;
+                    if (error instanceof $mol_data_error) {
+                        errors.push(error);
+                    }
+                    else {
+                        return $mol_fail_hidden(error);
+                    }
+                }
+            }
+            return $mol_fail(new $mol_data_error(`${val} is not any of variants`, {}, ...errors));
         }, sub);
     }
-    $.$mol_data_nullable = $mol_data_nullable;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_data_optional(sub, fallback) {
-        return $mol_data_setup((val) => {
-            if (val === undefined) {
-                return fallback?.();
-            }
-            return sub(val);
-        }, { sub, fallback });
-    }
-    $.$mol_data_optional = $mol_data_optional;
+    $.$mol_data_variant = $mol_data_variant;
 })($ || ($ = {}));
 
 ;
@@ -10372,29 +10591,29 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    function $mol_data_variant(...sub) {
+    function $mol_data_nullable(sub) {
         return $mol_data_setup((val) => {
-            const errors = [];
-            for (const type of sub) {
-                let hidden = $.$mol_fail_hidden;
-                try {
-                    $.$mol_fail = $.$mol_fail_hidden;
-                    return type(val);
-                }
-                catch (error) {
-                    $.$mol_fail = hidden;
-                    if (error instanceof $mol_data_error) {
-                        errors.push(error);
-                    }
-                    else {
-                        return $mol_fail_hidden(error);
-                    }
-                }
-            }
-            return $mol_fail(new $mol_data_error(`${val} is not any of variants`, {}, ...errors));
+            if (val === null)
+                return null;
+            return sub(val);
         }, sub);
     }
-    $.$mol_data_variant = $mol_data_variant;
+    $.$mol_data_nullable = $mol_data_nullable;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_optional(sub, fallback) {
+        return $mol_data_setup((val) => {
+            if (val === undefined) {
+                return fallback?.();
+            }
+            return sub(val);
+        }, { sub, fallback });
+    }
+    $.$mol_data_optional = $mol_data_optional;
 })($ || ($ = {}));
 
 ;
@@ -10480,13 +10699,25 @@ var $;
     $.$mol_github_model_polyglots = [
         'openai/gpt-4.1-mini',
     ];
+    const Text = $mol_data_record({
+        type: $mol_data_const('text'),
+        text: $mol_data_string,
+    });
+    const Image = $mol_data_record({
+        type: $mol_data_const('image_url'),
+        image_url: $mol_data_record({
+            url: $mol_data_string,
+        }),
+    });
+    const Content_item = $mol_data_variant(Text, Image);
+    const Content = $mol_data_variant($mol_data_string, $mol_data_array(Content_item));
     const System = $mol_data_record({
         role: $mol_data_const('system'),
-        content: $mol_data_string,
+        content: Content,
     });
     const Assistant = $mol_data_record({
         role: $mol_data_const('assistant'),
-        content: $mol_data_nullable($mol_data_string),
+        content: $mol_data_nullable(Content),
         tool_calls: $mol_data_optional($mol_data_array($mol_data_record({
             type: $mol_data_const('function'),
             id: $mol_data_string,
@@ -10498,12 +10729,12 @@ var $;
     });
     const User = $mol_data_record({
         role: $mol_data_const('user'),
-        content: $mol_data_string,
+        content: Content,
     });
     const Tool = $mol_data_record({
         role: $mol_data_const('tool'),
         tool_call_id: $mol_data_string,
-        content: $mol_data_string,
+        content: Content,
     });
     const Message = $mol_data_variant(Assistant, User, Tool);
     const Resp = $mol_data_record({
@@ -10516,6 +10747,13 @@ var $;
             message: $mol_data_string,
         }),
     });
+    function bloat_content(val) {
+        if (typeof val !== 'string')
+            val = JSON.stringify(val);
+        else if (val.startsWith('data:'))
+            return { type: 'image_url', image_url: { url: val } };
+        return { type: 'text', text: val };
+    }
     class $mol_github_model extends $mol_object {
         names() {
             return this.$.$mol_github_model_polyglots;
@@ -10553,27 +10791,27 @@ var $;
             fork.ask(prompt);
             return fork.response();
         }
-        ask(text) {
+        ask(chunks) {
             this.history([
                 ...this.history(),
                 {
                     role: "user",
-                    content: JSON.stringify(text),
+                    content: chunks.map(bloat_content),
                 }
             ]);
             return this;
         }
-        tell(text) {
+        tell(chunks) {
             this.history([
                 ...this.history(),
                 {
                     role: "assistant",
-                    content: JSON.stringify(text),
+                    content: chunks.map(bloat_content),
                 }
             ]);
             return this;
         }
-        answer(id, data) {
+        answer(id, chunks) {
             const history = this.history();
             const index = 1 + history.findIndex(msg => msg.role === 'tool' && msg.tool_call_id === id);
             if (!index)
@@ -10583,7 +10821,7 @@ var $;
                 {
                     role: "tool",
                     tool_call_id: id,
-                    content: JSON.stringify(data),
+                    content: chunks.map(bloat_content),
                 },
                 ...history.slice(index),
             ]);
@@ -10633,7 +10871,9 @@ var $;
                         const resp = this.request(model, key);
                         const message = resp.choices[0].message;
                         this.history([...history, message]);
-                        return JSON.parse(message.content ?? 'null');
+                        if (typeof message.content === 'string')
+                            return JSON.parse(message.content);
+                        return message.content;
                     }
                     catch (error) {
                         const resp = error.cause;
@@ -10779,9 +11019,13 @@ var $;
 			(obj.rows) = () => ((this.messages()));
 			return obj;
 		}
-		Avatar(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => (["🙂"]);
+		attach(next){
+			if(next !== undefined) return next;
+			return [];
+		}
+		Attach(){
+			const obj = new this.$.$mol_attach();
+			(obj.items) = (next) => ((this.attach(next)));
 			return obj;
 		}
 		prompt_text(next){
@@ -10815,7 +11059,7 @@ var $;
 			(obj.title_content) = () => (["🤖 ", (this.title())]);
 			(obj.body_content) = () => ([(this.Status()), (this.Messages())]);
 			(obj.foot) = () => ([
-				(this.Avatar()), 
+				(this.Attach()), 
 				(this.Prompt_text()), 
 				(this.Prompt_submit())
 			]);
@@ -10901,7 +11145,8 @@ var $;
 	($mol_mem_key(($.$giper_bot.prototype), "Message_text"));
 	($mol_mem_key(($.$giper_bot.prototype), "Message"));
 	($mol_mem(($.$giper_bot.prototype), "Messages"));
-	($mol_mem(($.$giper_bot.prototype), "Avatar"));
+	($mol_mem(($.$giper_bot.prototype), "attach"));
+	($mol_mem(($.$giper_bot.prototype), "Attach"));
 	($mol_mem(($.$giper_bot.prototype), "prompt_text"));
 	($mol_mem(($.$giper_bot.prototype), "prompt_submit"));
 	($mol_mem(($.$giper_bot.prototype), "Prompt_text"));
@@ -10920,6 +11165,86 @@ var $;
 	($mol_mem(($.$giper_bot.prototype), "Context"));
 	($mol_mem(($.$giper_bot.prototype), "Model"));
 
+
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_picture extends $mol_object2 {
+        canvas;
+        constructor(canvas) {
+            super();
+            this.canvas = canvas;
+        }
+        get context() {
+            return this.canvas.getContext('2d');
+        }
+        get bitmap() {
+            return this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+        }
+        static fit(image, width = Number.POSITIVE_INFINITY, height = width) {
+            if (image instanceof Blob)
+                image = $mol_wire_sync(URL).createObjectURL(image);
+            if (typeof image === 'string')
+                image = $mol_wire_sync(this).load(image);
+            let [w, h] = this.sizes(image);
+            if (w > width) {
+                h *= width / w;
+                w = width;
+            }
+            if (h > height) {
+                w *= height / h;
+                h = height;
+            }
+            return this.make(image, w, h);
+        }
+        static make(image, width, height = width) {
+            const canvas = $mol_dom_context.document.createElement('canvas');
+            Object.assign(canvas, { width, height });
+            const context = canvas.getContext('2d');
+            context.drawImage(image, 0, 0, width, height);
+            return new this(canvas);
+        }
+        static sizes(image) {
+            if (image instanceof HTMLVideoElement)
+                return [
+                    image.videoWidth,
+                    image.videoHeight,
+                ];
+            if (image instanceof SVGImageElement)
+                return [
+                    image.width.baseVal.value,
+                    image.height.baseVal.value,
+                ];
+            return [
+                image.width,
+                image.height,
+            ];
+        }
+        static async load(uri) {
+            const image = new Image;
+            image.src = uri;
+            await new Promise((onload, onerror) => Object.assign(image, { onload, onerror }));
+            return image;
+        }
+        format(type, quality = .9) {
+            return new Promise(done => this.canvas.toBlob(done, type, quality));
+        }
+        url(type = 'image/webp', quality = .9) {
+            return this.canvas.toDataURL(type, quality);
+        }
+    }
+    __decorate([
+        $mol_action
+    ], $mol_picture.prototype, "format", null);
+    __decorate([
+        $mol_action
+    ], $mol_picture.prototype, "url", null);
+    __decorate([
+        $mol_action
+    ], $mol_picture, "fit", null);
+    $.$mol_picture = $mol_picture;
+})($ || ($ = {}));
 
 ;
 "use strict";
@@ -11073,7 +11398,9 @@ var $;
                 return this.history().map((_, i) => this.Message(i));
             }
             message_text(index) {
-                let text = this.history()[index] ?? '';
+                let text = (this.history()[index] ?? [])
+                    .map(item => item.startsWith('data:') ? `""` + item + `""` : item)
+                    .join('\n');
                 if ('`#>|='.includes(text[0]))
                     text = '\n' + text;
                 return this.message_name(index) + ' ' + text;
@@ -11094,7 +11421,7 @@ var $;
                 const model = this.Model().fork();
                 for (let i = 0; i < history.length; ++i) {
                     if (i % 2)
-                        model.tell({ response: history[i], digest: null, title: null });
+                        model.tell(history[i].map(chunk => ({ response: chunk, digest: null, title: null })));
                     else
                         model.ask(history[i]);
                 }
@@ -11102,17 +11429,24 @@ var $;
                     const resp = model.response();
                     this.dialog_title(resp.title);
                     this.digest(resp.digest);
-                    this.history([...history, resp.response]);
+                    this.history([...history, [resp.response]]);
                 }
                 catch (error) {
+                    if ($mol_promise_like(error))
+                        $mol_fail_hidden(error);
                     if ($mol_fail_log(error)) {
-                        this.history([...history, '📛' + error.message]);
+                        this.history([...history, ['📛' + error.message]]);
                     }
                 }
             }
             prompt_submit() {
-                this.history([...this.history(), ...$mol_maybe(this.prompt_text() || null)]);
+                if (!this.prompt_text() && !this.attach())
+                    return;
+                const Picture = $mol_wire_sync(this.$.$mol_picture);
+                const uris = this.attach().map(item => Picture.fit(item, 512).url('image/webp'));
+                this.history([...this.history(), [...uris, this.prompt_text()]]);
                 this.prompt_text('');
+                this.attach([]);
             }
             reset() {
                 this.dialog_title(null);
@@ -11132,6 +11466,9 @@ var $;
         __decorate([
             $mol_mem
         ], $giper_bot.prototype, "communication", null);
+        __decorate([
+            $mol_action
+        ], $giper_bot.prototype, "prompt_submit", null);
         $$.$giper_bot = $giper_bot;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -11168,8 +11505,13 @@ var $;
                     padding: $mol_gap.block,
                 },
             },
-            Avatar: {
-                padding: $mol_gap.text,
+            Attach: {
+                Item: {
+                    height: '2.5rem',
+                },
+                Add: {
+                    height: '2.5rem',
+                },
             },
             Prompt_text: {
                 flex: {
