@@ -39,10 +39,6 @@ namespace $.$$ {
 			},
 		},
 		
-		Avatar: {
-			padding: $mol_gap.text,
-		},
-		
 		Prompt_text: {
 			flex: {
 				shrink: 1,

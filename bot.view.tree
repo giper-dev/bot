@@ -18,7 +18,6 @@ $giper_bot $mol_book2
 						<= Message*0 $mol_view sub /
 							<= Message_text* $mol_text text <= message_text* \
 			foot /
-				<= Avatar $mol_view sub / \🙂
 				<= Attach $mol_attach
 					items? <=> attach? /string
 				<= Prompt_text $mol_textarea
