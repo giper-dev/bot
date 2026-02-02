@@ -60,6 +60,7 @@ namespace $.$$ {
 				this.digest( resp.digest )
 				this.history([ ... history, resp.response ])
 			} catch( error: any ) {
+				if( $mol_promise_like( error ) ) $mol_fail_hidden( error )
 				if( $mol_fail_log( error ) ) {
 					this.history([ ... history, '📛' + error.message ])
 				}
