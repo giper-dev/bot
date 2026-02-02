@@ -30,6 +30,15 @@ namespace $.$$ {
 			},
 		},
 		
+		Attach: {
+			Item: {
+				height: '2.5rem',
+			},
+			Add: {
+				height: '2.5rem',
+			},
+		},
+		
 		Avatar: {
 			padding: $mol_gap.text,
 		},

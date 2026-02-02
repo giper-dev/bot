@@ -14,7 +14,7 @@ namespace $.$$ {
 		}
 		
 		@ $mol_mem
-		history( next?: string[] ) {
+		history( next?: string[][] ) {
 			return this.$.$mol_state_session.value( 'history', next ) ?? $mol_maybe( this.$.$mol_state_arg.value( 'prompt' ) || null )
 		}
 		
@@ -24,7 +24,9 @@ namespace $.$$ {
 		
 		@ $mol_mem_key
 		override message_text( index: number ): string {
-			let text = this.history()[ index ] ?? ''
+			let text = ( this.history()[ index ] ?? [] )
+				.map( item => item.startsWith( 'data:' ) ? `""` + item + `""` : item )
+				.join( '\n' )
 			if( '`#>|='.includes( text[0] ) ) text = '\n' + text // markdown blocks
 			return this.message_name( index ) + ' ' + text
 		}
@@ -50,7 +52,7 @@ namespace $.$$ {
 			
 			const model = this.Model().fork()
 			for( let i = 0; i < history.length; ++i ) {
-				if( i % 2 ) model.tell({ response: history[i], digest: null, title:  null })
+				if( i % 2 ) model.tell( history[i].map( chunk => ({ response: chunk, digest: null, title:  null }) ) )
 				else model.ask( history[i] )
 			}
 			
@@ -58,19 +60,26 @@ namespace $.$$ {
 				const resp = model.response()
 				this.dialog_title( resp.title )
 				this.digest( resp.digest )
-				this.history([ ... history, resp.response ])
+				this.history([ ... history, [ resp.response ] ])
 			} catch( error: any ) {
 				if( $mol_promise_like( error ) ) $mol_fail_hidden( error )
 				if( $mol_fail_log( error ) ) {
-					this.history([ ... history, '📛' + error.message ])
+					this.history([ ... history, [ '📛' + error.message ] ])
 				}
 			}
 			
 		}
 		
+		@ $mol_action
 		override prompt_submit() {
-			this.history([ ... this.history(), ... $mol_maybe( this.prompt_text() || null ) ])
+			if( !this.prompt_text() && !this.attach() ) return
+			const Picture = $mol_wire_sync( this.$.$mol_picture )
+			const uris = this.attach().map( item =>
+				Picture.fit( item, 512 ).url( 'image/webp' )
+			)
+			this.history([ ... this.history(), [ ... uris, this.prompt_text() ] ])
 			this.prompt_text( '' )
+			this.attach( [] )
 		}
 		
 		override reset() {
