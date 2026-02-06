@@ -88,5 +88,27 @@ namespace $.$$ {
 			this.history( [] )
 		}
 		
+		override quote_start() {
+			this.quote( $mol_dom.document.getSelection()?.toString() ?? '' )
+		}
+		
+		override quote_end() {
+			
+			let quote = this.quote().trim()
+			if( !quote ) return
+			
+			const [ from, to ] = this.Prompt_text().Edit().selection()
+			if( from !== to ) return
+			
+			let text = this.prompt_text()
+			if( to < text.length - 1 ) return
+			
+			text = ( text ? text + '\n' : '' ) + quote.replaceAll( /^/mg, '> ' ) + '\n'
+			
+			this.prompt_text( text )
+			this.Prompt_text().Edit().selection([ text.length, text.length ])
+			
+		}
+		
 	}
 }
