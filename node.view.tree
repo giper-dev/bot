@@ -838,9 +838,9 @@ $giper_bot $mol_book2
 				<= Version $mol_paginator
 					value? <=> version? 0
 			body /
-				<= Result $mol_text_code
+				<= Result $mol_textarea
 					sidebar_showed true
-					text <= result \
+					value? <=> result? \
 	placeholders /
 		<= Context $mol_page
 			title @ \Summary

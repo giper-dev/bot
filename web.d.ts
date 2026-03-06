@@ -5749,15 +5749,15 @@ declare namespace $ {
 		,
 		ReturnType< $mol_paginator['value'] >
 	>
-	type $mol_text_code__sidebar_showed_giper_bot_25 = $mol_type_enforce<
+	type $mol_textarea__sidebar_showed_giper_bot_25 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $mol_text_code['sidebar_showed'] >
+		ReturnType< $mol_textarea['sidebar_showed'] >
 	>
-	type $mol_text_code__text_giper_bot_26 = $mol_type_enforce<
+	type $mol_textarea__value_giper_bot_26 = $mol_type_enforce<
 		ReturnType< $giper_bot['result'] >
 		,
-		ReturnType< $mol_text_code['text'] >
+		ReturnType< $mol_textarea['value'] >
 	>
 	type $mol_page__title_giper_bot_27 = $mol_type_enforce<
 		ReturnType< $giper_bot['result_title'] >
@@ -5840,8 +5840,8 @@ declare namespace $ {
 		result_title( next?: string ): string
 		version( next?: number ): number
 		Version( ): $mol_paginator
-		result( ): string
-		Result( ): $mol_text_code
+		result( next?: string ): string
+		Result( ): $mol_textarea
 		Result_page( id: any): $mol_page
 		digest( next?: string ): string
 		Digest( ): $mol_text
@@ -5882,7 +5882,7 @@ declare namespace $.$$ {
         message_name(index: number): string;
         results(): Response[];
         version(next?: number): number;
-        result(): string;
+        result(next?: string): string;
         rules(): string;
         context(): string;
         communication(): void;

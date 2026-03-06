@@ -11962,13 +11962,14 @@ var $;
 			(obj.value) = (next) => ((this.version(next)));
 			return obj;
 		}
-		result(){
+		result(next){
+			if(next !== undefined) return next;
 			return "";
 		}
 		Result(){
-			const obj = new this.$.$mol_text_code();
+			const obj = new this.$.$mol_textarea();
 			(obj.sidebar_showed) = () => (true);
-			(obj.text) = () => ((this.result()));
+			(obj.value) = (next) => ((this.result(next)));
 			return obj;
 		}
 		Result_page(id){
@@ -12046,6 +12047,7 @@ var $;
 	($mol_mem(($.$giper_bot.prototype), "result_title"));
 	($mol_mem(($.$giper_bot.prototype), "version"));
 	($mol_mem(($.$giper_bot.prototype), "Version"));
+	($mol_mem(($.$giper_bot.prototype), "result"));
 	($mol_mem(($.$giper_bot.prototype), "Result"));
 	($mol_mem_key(($.$giper_bot.prototype), "Result_page"));
 	($mol_mem(($.$giper_bot.prototype), "digest"));
@@ -12211,8 +12213,8 @@ var $;
                     next = count - 1;
                 return Math.max(0, next ?? count - 1);
             }
-            result() {
-                return this.results()[this.version()]?.document ?? '';
+            result(next) {
+                return next ?? this.results()[this.version()]?.document ?? '';
             }
             rules() {
                 return super.rules()
@@ -12290,6 +12292,9 @@ var $;
         __decorate([
             $mol_mem
         ], $giper_bot.prototype, "version", null);
+        __decorate([
+            $mol_mem
+        ], $giper_bot.prototype, "result", null);
         __decorate([
             $mol_mem
         ], $giper_bot.prototype, "rules", null);
