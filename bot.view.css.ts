@@ -14,9 +14,13 @@ namespace $.$$ {
 		},
 		
 		Dialog: {
-			margin: [ 0, 'auto' ],
+			margin: {
+				left: 'auto',
+				right: 'auto',
+			},
 			flex: {
-				basis: '60rem',
+				basis: '30rem',
+				grow: 1,
 			},
 			Body: {
 				display: 'flex',
@@ -27,6 +31,16 @@ namespace $.$$ {
 					items: 'stretch',
 				},
 				padding: $mol_gap.block,
+			},
+		},
+		
+		Result_page: {
+			flex: {
+				basis: `50rem`,
+				grow: 1,
+			},
+			margin: {
+				right: 'auto',
 			},
 		},
 		

@@ -1,16 +1,45 @@
 $giper_bot $mol_book2
 	Model? $mol_github_model
 		params * temperature 0
-		rules <= context <= rules \Ты - Гипер Бот, универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный и лаконичный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле "response" должен находиться собственно ответ в виде строки. В поле "confidence" отрази степень своей увернности в истинности ответа в диапазоне от 0 до 1. В поле "digest" должен находиться краткий пересказ всего вашего диалога от начала до конца. Говоря о пользователе в пересказе (и только в нём) используй эмодзи 🙂 вместо слова "пользователь", а вместо "Гипер Бота" - используй эмозди 🤖. В поле "title" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение целиком. Отвечай всегда на языке с кодом {lang}, если пользователь не попросил иное. Далее идёт пересказ прошлых ваших сообщений, не потеряй его в своём пересказе:
+		rules <= context <= rules \
+			\Ты - Гипер Бот, универсальный интеллектуальный ассистент, помогающий пользователю редактировать текстовый документ.
+			\Пользователь присылает тебе запрос в виде JSON строки.
+			\Ответ должен быть представлен в виде JSON объекта, соответствующего следующей схеме:
+			\	type Response = {
+			\		message: string // ответ на вопрос пользователя в свободной форме
+			\		files: string[] // ссылки на файлы для скачивания
+			\		document: string | null // финальный текст, null если обновление не требуется
+			\		confidence: number // степень уверенности в ответе от 0 до 1
+			\		digest: string // краткий пересказ всего диалога от начала до конца
+			\		title: string // ёмкий лаконичное название всего диалога
+			\	}
+			\Если пользователь попросил что-то написать или изменить, то это должно быть отражено в document, а не должно дублироваться в message. 
+			\Если пользователь что-то спросил, то в message должен быть максимально точный и лаконичный ответ без лишней информации, о которой пользователь не просил.
+			\Говоря о пользователе в пересказе (и только в нём) используй эмодзи 🙂 вместо слова "пользователь", а вместо "Гипер Бота" - используй эмозди 🤖.
+			\Отвечай всегда на языке с кодом {lang}, если пользователь не попросил иное.
+		state <= state /string
+			\Далее идёт состояние документа, на который сейчас смотрит пользователь, и к которому относится его последний запрос:
+			<= result
 	plugins /
 		<= Theme $mol_theme_auto
 	quote? \
 	pages /
 		<= Space $giper_web_frame
 		<= Dialog $mol_page
-			title_content /
-				\🤖 
-				<= title <= dialog_title? @ \Giper Bot
+			title <= dialog_title? @ \🤖 Giper Bot
+			tools /
+				<= Reset $mol_button_minor
+					hint @ \Reset
+					click? <=> reset? null
+					sub /
+						<= Reset_icon $mol_icon_trash_can_outline
+				<= Sources $mol_link_source
+					uri \https://github.com/giper-dev/bot/
+				<= Donate $mol_link_donate
+					uri \https://boosty.to/hyoo
+				<= Support $mol_link_support
+					uri \https://t.me/giper_web/276
+				<= Lights $mol_lights_toggle
 			body_content /
 				<= Status $mol_status
 					status <= communication null
@@ -26,7 +55,7 @@ $giper_bot $mol_book2
 						^
 						pointerdown? <=> quote_start? null
 						pointerup? <=> quote_end? null
-					hint @ \Ask Giper Bot...
+					hint @ \Ask something...
 					value? <=> prompt_text? \
 					submit? <=> prompt_submit? null
 				<= Prompt_submit $mol_button_minor
@@ -34,22 +63,18 @@ $giper_bot $mol_book2
 					click? <=> prompt_submit? 
 					sub /
 						<= Prompt_submit_icon $mol_icon_send
+		<= Result_page*0 $mol_page
+			title <= result_title? @ \Result
+			tools /
+				<= Version $mol_paginator
+					value? <=> version? 0
+			body /
+				<= Result $mol_text_code
+					sidebar_showed true
+					text <= result \
 	placeholders /
 		<= Context $mol_page
 			title @ \Summary
-			tools /
-				<= Reset $mol_button_minor
-					hint @ \Reset
-					click? <=> reset? null
-					sub /
-						<= Reset_icon $mol_icon_trash_can_outline
-				<= Sources $mol_link_source
-					uri \https://github.com/giper-dev/bot/
-				<= Donate $mol_link_donate
-					uri \https://boosty.to/hyoo
-				<= Support $mol_link_support
-					uri \https://t.me/giper_web/276
-				<= Lights $mol_lights_toggle
 			body /
 				- <= Digest_block $mol_labeler
 					title @ \Digest
