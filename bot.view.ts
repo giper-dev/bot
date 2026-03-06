@@ -80,8 +80,9 @@ namespace $.$$ {
 			return Math.max( 0, next ?? count - 1 )
 		}
 		
-		result() {
-			return this.results()[ this.version() ]?.document ?? ''
+		@ $mol_mem
+		result( next?: string ) {
+			return next ?? this.results()[ this.version() ]?.document ?? ''
 		}
 		
 		@ $mol_mem
