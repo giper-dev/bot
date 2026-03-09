@@ -44,8 +44,9 @@ namespace $.$$ {
 		}
 		
 		@ $mol_mem
-		history( next?: History ) {
-			return this.$.$mol_state_session.value( 'history', next ) ?? $mol_maybe( this.$.$mol_state_arg.value( 'prompt' ) || null ).map( p => [p] )
+		history( next?: History ): History {
+			return this.$.$mol_state_session.value( 'history', next )
+				?? $mol_maybe( this.$.$mol_state_arg.value( 'prompt' ) || null ).map( p => ({ message: p, files: [] }) )
 		}
 		
 		override messages() {
