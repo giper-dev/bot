@@ -12187,7 +12187,8 @@ var $;
                 return this.$.$mol_state_session.value('prompt_text', next) ?? '';
             }
             history(next) {
-                return this.$.$mol_state_session.value('history', next) ?? $mol_maybe(this.$.$mol_state_arg.value('prompt') || null).map(p => [p]);
+                return this.$.$mol_state_session.value('history', next)
+                    ?? $mol_maybe(this.$.$mol_state_arg.value('prompt') || null).map(p => ({ message: p, files: [] }));
             }
             messages() {
                 return this.history().map((_, i) => this.Message(i));
