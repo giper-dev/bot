@@ -251,18 +251,29 @@ namespace $.$$ {
 				const btn = orig_Item( id )
 				const url = obj.items()[ id ]
 				const meta = self.file_meta().get( url )
-				if( meta && !meta.type.startsWith( 'image/' ) ) {
-					btn.sub = () => {
-						( btn.dom_node() as HTMLElement ).style.display = 'none'
-						return []
-					}
-				}
+				const isFile = meta && !meta.type.startsWith( 'image/' )
+				;( btn.dom_node() as HTMLElement ).style.display = isFile ? 'none' : ''
 				return btn
 			}
 			
 			return obj
 		}
 		
+		@ $mol_action
+		attach_file_remove( index: number ) {
+			const urls = this.attach()
+			const url = urls[ index ]
+			console.log( '[remove] index=', index, 'url=', url, 'total=', urls.length, 'all=', urls.slice() )
+			if( !url ) return
+			const next = [ ... urls.slice( 0, index ), ... urls.slice( index + 1 ) ]
+			console.log( '[remove] after=', next.length, next.slice() )
+			this.attach( next )
+			const meta = new Map( this.file_meta() )
+			meta.delete( url )
+			this.file_meta( meta )
+			console.log( '[remove] done, attach now=', this.attach().length )
+		}
+
 		@ $mol_mem
 		override attach_preview_items() {
 			return this.attach()
@@ -272,6 +283,19 @@ namespace $.$$ {
 					return this.Attach_file( i )
 				})
 				.filter( Boolean ) as $mol_view[]
+		}
+
+		@ $mol_mem_key
+		override Attach_file( id: number ) {
+			const card = super.Attach_file( id )
+			console.log( '[Attach_file] id=', id, 'setting click handler' )
+			card.click = ( next?: Event ) => {
+				console.log( '[click] id=', id, 'event=', next )
+				if( !next ) return null
+				this.attach_file_remove( id )
+				return next
+			}
+			return card
 		}
 		
 		@ $mol_mem_key

@@ -72,7 +72,11 @@ namespace $.$$ {
 			flex: {
 				wrap: 'wrap',
 			},
-			padding: {
+		},
+
+		Attach_file: {
+			cursor: 'pointer',
+			margin: {
 				bottom: '.5rem',
 			},
 		},

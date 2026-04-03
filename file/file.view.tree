@@ -1,4 +1,7 @@
 $giper_bot_file $mol_view
+	click?event null
+	event *
+		click?event <=> click?event
 	name \file.txt
 	info \
 	ext \
