@@ -1,6 +1,6 @@
 namespace $.$$ {
 	
-	const { url, linear_gradient, hsla } = $mol_style_func
+	const { url, linear_gradient } = $mol_style_func
 	
 	$mol_style_define( $giper_bot, {
 		
@@ -44,13 +44,26 @@ namespace $.$$ {
 			},
 		},
 		
+		Message: {
+			flex: {
+				direction: 'column',
+			},
+			align: {
+				items: 'flex-start',
+			},
+		},
+		
 		Attach: {
 			Item: {
-				minHeight: '2.5rem',
+				height: '2.5rem',
 			},
 			Add: {
 				height: '2.5rem',
 			},
+		},
+		
+		Attach_file: {
+			width: '10rem',
 		},
 		
 		Prompt_text: {

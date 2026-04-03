@@ -2,6 +2,8 @@ namespace $.$$ {
 	
 	$mol_style_define( $giper_bot_file, {
 		
+		width: 'auto',
+		height: 'auto',
 		background: {
 			color: $mol_theme.card,
 		},

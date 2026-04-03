@@ -87,9 +87,9 @@ $giper_bot $mol_book2
 					Content <= Rules $mol_text
 						text <=
 	Message_file*0 $giper_bot_file
-		name <= message_file_name*0 \
-		ext <= message_file_ext*0 \
-		info <= message_file_info*0 \
+		name <= message_file_name* \
+		ext <= message_file_ext* \
+		info <= message_file_info* \
 	Attach_file* $giper_bot_file
 		name <= attach_file_name* \
 		ext <= attach_file_ext* \
