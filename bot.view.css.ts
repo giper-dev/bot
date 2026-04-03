@@ -89,8 +89,8 @@ namespace $.$$ {
 		},
 
 		Attach_image: {
-			width: '4rem',
-			height: '4rem',
+			width: '100%',
+			height: '5rem',
 			objectFit: 'cover',
 			cursor: 'pointer',
 			border: {

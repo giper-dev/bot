@@ -2,7 +2,7 @@ namespace $.$$ {
 	
 	$mol_style_define( $giper_bot_file, {
 		
-		width: '6rem',
+		minWidth: 0,
 		height: '5rem',
 		background: {
 			color: $mol_theme.card,
@@ -24,6 +24,7 @@ namespace $.$$ {
 				weight: 'bold',
 				size: '.875rem',
 			},
+			minWidth: 0,
 			overflow: 'hidden',
 			whiteSpace: 'nowrap',
 			textOverflow: 'ellipsis',
