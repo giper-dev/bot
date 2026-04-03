@@ -252,12 +252,26 @@ namespace $.$$ {
 				const url = obj.items()[ id ]
 				const meta = self.file_meta().get( url )
 				if( meta && !meta.type.startsWith( 'image/' ) ) {
-					btn.sub = () => [ self.Attach_file( id ) ]
+					btn.sub = () => {
+						( btn.dom_node() as HTMLElement ).style.display = 'none'
+						return []
+					}
 				}
 				return btn
 			}
 			
 			return obj
+		}
+		
+		@ $mol_mem
+		override attach_preview_items() {
+			return this.attach()
+				.map( ( url, i ) => {
+					const meta = this.file_meta().get( url )
+					if( !meta || meta.type.startsWith( 'image/' ) ) return null
+					return this.Attach_file( i )
+				})
+				.filter( Boolean ) as $mol_view[]
 		}
 		
 		@ $mol_mem_key

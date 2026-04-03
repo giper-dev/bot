@@ -22,6 +22,11 @@ namespace $.$$ {
 				basis: '30rem',
 				grow: 1,
 			},
+			Foot: {
+				flex: {
+					direction: 'column',
+				},
+			},
 			Body: {
 				display: 'flex',
 				flex: {
@@ -62,8 +67,14 @@ namespace $.$$ {
 			},
 		},
 		
-		Attach_file: {
-			width: '10rem',
+		Attach_previews: {
+			gap: $mol_gap.block,
+			flex: {
+				wrap: 'wrap',
+			},
+			padding: {
+				bottom: '.5rem',
+			},
 		},
 		
 		Prompt_text: {
