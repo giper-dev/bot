@@ -245,7 +245,6 @@ namespace $.$$ {
 			obj.attach_new = ( files: readonly File[] ) => this.on_attach_files( files )
 
 			const self = this
-			const orig_content = obj.content.bind( obj )
 
 			obj.content = () => {
 				const items = obj.items()
@@ -266,15 +265,12 @@ namespace $.$$ {
 		attach_file_remove( index: number ) {
 			const urls = this.attach()
 			const url = urls[ index ]
-			console.log( '[remove] index=', index, 'url=', url, 'total=', urls.length, 'all=', urls.slice() )
 			if( !url ) return
 			const next = [ ... urls.slice( 0, index ), ... urls.slice( index + 1 ) ]
-			console.log( '[remove] after=', next.length, next.slice() )
 			this.attach( next )
 			const meta = new Map( this.file_meta() )
 			meta.delete( url )
 			this.file_meta( meta )
-			console.log( '[remove] done, attach now=', this.attach().length )
 		}
 
 		@ $mol_mem
@@ -291,9 +287,7 @@ namespace $.$$ {
 		@ $mol_mem_key
 		override Attach_file( id: number ) {
 			const card = super.Attach_file( id )
-			console.log( '[Attach_file] id=', id, 'setting click handler' )
 			card.click = ( next?: Event ) => {
-				console.log( '[click] id=', id, 'event=', next )
 				if( !next ) return null
 				this.attach_file_remove( id )
 				return next

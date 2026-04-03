@@ -82,6 +82,10 @@ namespace $.$$ {
 			},
 		},
 		
+		Prompt_row: {
+			gap: '.5rem',
+		},
+
 		Prompt_text: {
 			flex: {
 				shrink: 1,
