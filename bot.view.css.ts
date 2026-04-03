@@ -59,6 +59,7 @@ namespace $.$$ {
 		},
 		
 		Attach: {
+			gap: '.5rem',
 			Item: {
 				height: '2.5rem',
 			},
@@ -77,7 +78,7 @@ namespace $.$$ {
 		Attach_file: {
 			cursor: 'pointer',
 			margin: {
-				bottom: '.5rem',
+				bottom: '1rem',
 			},
 		},
 		

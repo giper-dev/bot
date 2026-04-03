@@ -241,21 +241,24 @@ namespace $.$$ {
 		@ $mol_mem
 		override Attach() {
 			const obj = super.Attach()
-			
+
 			obj.attach_new = ( files: readonly File[] ) => this.on_attach_files( files )
-			
+
 			const self = this
-			const orig_Item = obj.Item.bind( obj )
-			
-			obj.Item = ( id: number ) => {
-				const btn = orig_Item( id )
-				const url = obj.items()[ id ]
-				const meta = self.file_meta().get( url )
-				const isFile = meta && !meta.type.startsWith( 'image/' )
-				;( btn.dom_node() as HTMLElement ).style.display = isFile ? 'none' : ''
-				return btn
+			const orig_content = obj.content.bind( obj )
+
+			obj.content = () => {
+				const items = obj.items()
+				const views: $mol_view[] = []
+				for( let i = 0; i < items.length; ++i ) {
+					const meta = self.file_meta().get( items[i] )
+					if( meta && !meta.type.startsWith( 'image/' ) ) continue
+					views.push( obj.Item( i ) )
+				}
+				views.push( obj.Add() )
+				return views
 			}
-			
+
 			return obj
 		}
 		
