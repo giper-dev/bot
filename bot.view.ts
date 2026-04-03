@@ -64,12 +64,10 @@ namespace $.$$ {
 			
 			const item = this.history()[ index ]
 			let text = [ item.message, ... item.files.map( file => {
-				if( typeof file === 'object' && 'name' in file ) {
-					return `""${ $giper_bot.file_card_uri( file.name ) }""`
-				}
+				if( typeof file === 'object' && 'name' in file ) return ''
 				if( typeof file === 'string' && file.startsWith( 'data:' ) ) return `""` + file + `""`
 				return `\uD83D\uDCCE`
-			}) ].join( '\n' )
+			}) ].filter( Boolean ).join( '\n' )
 			
 			if( '`#>|='.includes( text[0] ) ) text = '\n' + text // markdown blocks
 			return this.message_name( index ) + ' ' + text
@@ -78,6 +76,42 @@ namespace $.$$ {
 		
 		message_name( index: number ): string {
 			return index % 2 ? '🤖' : '🙂'
+		}
+		
+		@ $mol_mem_key
+		override message_content( index: number ) {
+			const item = this.history()[ index ]
+			const files = item.files
+				.map( ( file, i ) => {
+					if( typeof file !== 'object' || !( 'name' in file ) ) return null
+					return this.Message_file([ index, i ])
+				})
+				.filter( Boolean ) as $mol_view[]
+			return [ this.Message_text( index ), ... files ]
+		}
+		
+		@ $mol_mem_key
+		override message_file_name( [ msg, file ]: [ number, number ] ) {
+			const item = this.history()[ msg ]
+			const f = item.files[ file ]
+			return typeof f === 'object' && 'name' in f ? f.name : ''
+		}
+		
+		@ $mol_mem_key
+		override message_file_ext( [ msg, file ]: [ number, number ] ) {
+			const item = this.history()[ msg ]
+			const f = item.files[ file ]
+			if( typeof f !== 'object' || !( 'name' in f ) ) return ''
+			return f.name.split( '.' ).pop()?.toUpperCase() ?? ''
+		}
+		
+		@ $mol_mem_key
+		override message_file_info( [ msg, file ]: [ number, number ] ) {
+			const item = this.history()[ msg ]
+			const f = item.files[ file ]
+			if( typeof f !== 'object' || !( 'name' in f ) ) return ''
+			const lines = f.content.split( '\n' ).length
+			return lines + ' lines'
 		}
 		
 		@ $mol_mem
@@ -218,7 +252,7 @@ namespace $.$$ {
 				const url = obj.items()[ id ]
 				const meta = self.file_meta().get( url )
 				if( meta && !meta.type.startsWith( 'image/' ) ) {
-					btn.sub = () => [ self.Attach_card( id ) ]
+					btn.sub = () => [ self.Attach_file( id ) ]
 				}
 				return btn
 			}
@@ -227,18 +261,33 @@ namespace $.$$ {
 		}
 		
 		@ $mol_mem_key
-		override attach_card_name_text( index: number ) {
+		override attach_file_name( index: number ) {
 			const url = this.attach()[ index ]
 			const meta = this.file_meta().get( url )
 			return meta?.name ?? 'file'
 		}
 		
 		@ $mol_mem_key
-		override attach_card_ext_text( index: number ) {
+		override attach_file_ext( index: number ) {
 			const url = this.attach()[ index ]
 			const meta = this.file_meta().get( url )
 			const name = meta?.name ?? ''
 			return name.split( '.' ).pop()?.toUpperCase() ?? ''
+		}
+		
+		@ $mol_mem_key
+		override attach_file_info( index: number ) {
+			const url = this.attach()[ index ]
+			const meta = this.file_meta().get( url )
+			if( !meta || meta.type.startsWith( 'image/' ) ) return ''
+			try {
+				const resp = this.$.$mol_fetch.response( url )
+				const text = resp.text()
+				const lines = text.split( '\n' ).length
+				return lines + ' lines'
+			} catch {
+				return ''
+			}
 		}
 		
 		on_paste( event: ClipboardEvent ) {
@@ -248,18 +297,21 @@ namespace $.$$ {
 			this.on_attach_files( files )
 		}
 		
-		static file_card_uri( name: string ): string {
+		static file_card_uri( name: string, info = '' ): string {
 			const ext = name.split( '.' ).pop()?.toUpperCase() ?? ''
-			const short = name.length > 20 ? name.slice( 0, 17 ) + '\u2026' : name
+			const short = name.length > 24 ? name.slice( 0, 21 ) + '\u2026' : name
 			const escaped = short.replace( /[<>&"']/g, c =>
 				({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&apos;' } as Record<string,string>)[ c ] ?? c
 			)
+			const w = 180
+			const h = 100
 			const svg = [
-				`<svg xmlns='http://www.w3.org/2000/svg' width='140' height='80'>`,
-				`<rect width='140' height='80' rx='8' fill='%23f0f0f0' stroke='%23ddd'/>`,
-				`<text x='10' y='35' font-size='11' fill='%23333' font-family='system-ui,sans-serif'>${ escaped }</text>`,
-				`<rect x='8' y='50' rx='4' width='${ ext.length * 8 + 16 }' height='20' fill='%23e0e0e0'/>`,
-				`<text x='16' y='64' font-size='10' font-weight='bold' fill='%23666' font-family='system-ui,sans-serif'>${ ext }</text>`,
+				`<svg xmlns='http://www.w3.org/2000/svg' width='${ w }' height='${ h }'>`,
+				`<rect width='${ w }' height='${ h }' rx='10' fill='%23f5f5f5' stroke='%23e0e0e0'/>`,
+				`<text x='14' y='30' font-size='12' font-weight='bold' fill='%23222' font-family='system-ui,sans-serif'>${ escaped }</text>`,
+				... info ? [ `<text x='14' y='48' font-size='10' fill='%23999' font-family='system-ui,sans-serif'>${ info }</text>` ] : [],
+				`<rect x='12' y='${ h - 28 }' rx='8' width='${ ext.length * 8 + 20 }' height='20' fill='%23e8e8e8'/>`,
+				`<text x='22' y='${ h - 14 }' font-size='10' font-weight='bold' fill='%23666' font-family='system-ui,sans-serif'>${ ext }</text>`,
 				`</svg>`,
 			].join( '' )
 			return `data:image/svg+xml,${ svg }`
