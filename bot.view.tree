@@ -45,24 +45,31 @@ $giper_bot $mol_book2
 					status <= communication null
 				<= Messages $mol_list
 					rows <= messages /
-						<= Message*0 $mol_view sub /
+						<= Message*0 $mol_view sub <= message_content* /
+							<= Message_attachments* $mol_view
+								sub <= message_attachments* /
 							<= Message_text* $mol_text text <= message_text* \
 			foot /
-				<= Attach $mol_attach
-					items? <=> attach? /string
-				<= Prompt_text $mol_textarea
-					event *
-						^
-						pointerdown? <=> quote_start? null
-						pointerup? <=> quote_end? null
-					hint @ \Ask something...
-					value? <=> prompt_text? \
-					submit? <=> prompt_submit? null
-				<= Prompt_submit $mol_button_minor
-					hint @ \Send
-					click? <=> prompt_submit? 
+				<= Attach_previews $mol_view
+					sub <= attach_preview_items /
+				<= Prompt_row $mol_view
 					sub /
-						<= Prompt_submit_icon $mol_icon_send
+						<= Attach $mol_attach
+							items? <=> attach? /string
+						<= Prompt_text $mol_textarea
+							event *
+								^
+								pointerdown? <=> quote_start? null
+								pointerup? <=> quote_end? null
+								paste?event <=> on_paste?event null
+							hint @ \Ask something...
+							value? <=> prompt_text? \
+							submit? <=> prompt_submit? null
+						<= Prompt_submit $mol_button_minor
+							hint @ \Send
+							click? <=> prompt_submit?
+							sub /
+								<= Prompt_submit_icon $mol_icon_send
 		<= Result_page*0 $mol_page
 			title <= result_title? @ \Result
 			tools /
@@ -85,3 +92,15 @@ $giper_bot $mol_book2
 					title @ \Rules
 					Content <= Rules $mol_text
 						text <=
+	Message_file*0 $giper_bot_file
+		name <= message_file_name* \
+		ext <= message_file_ext* \
+		info <= message_file_info* \
+	Message_image*0 $mol_image
+		uri <= message_image_uri* \
+	Attach_file* $giper_bot_file
+		name <= attach_file_name* \
+		ext <= attach_file_ext* \
+		info <= attach_file_info* \
+	Attach_image* $mol_image
+		uri <= attach_image_uri* \

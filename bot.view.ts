@@ -1,8 +1,13 @@
 namespace $.$$ {
-	
+
+	type FileItem = {
+		name: string
+		content: string
+	}
+
 	type Request = {
 		message: string // текст запроса пользователя
-		files: string[] // ссылки на приложенные файлы
+		files: ( string | FileItem )[] // ссылки на приложенные файлы
 	}
 	
 	type Response = {
@@ -36,7 +41,8 @@ namespace $.$$ {
 		}
 		
 		override digest() {
-			return this.result_item()?.digest ?? ''
+			const responses = this.history().filter( ( _, i ) => i % 2 === 1 ) as Response[]
+			return responses[ responses.length - 1 ]?.digest ?? ''
 		}
 		
 		override prompt_text( next?: string ) {
@@ -57,15 +63,70 @@ namespace $.$$ {
 		override message_text( index: number ): string {
 			
 			const item = this.history()[ index ]
-			let text = [ item.message, ... item.files.map( item => `""` + item + `""` ) ].join( '\n' )
-			
-			if( '`#>|='.includes( text[0] ) ) text = '\n' + text // markdown blocks
+			let text = item.message
+
+			if( !text ) return ''
+			if( '`#>|='.includes( text[0] ) ) text = '\n' + text
 			return this.message_name( index ) + ' ' + text
-			
+
 		}
-		
+
 		message_name( index: number ): string {
 			return index % 2 ? '🤖' : '🙂'
+		}
+
+		@ $mol_mem_key
+		override message_attachments( index: number ) {
+			const item = this.history()[ index ]
+			const views: $mol_view[] = []
+			item.files.forEach( ( file, i ) => {
+				if( typeof file === 'object' && 'name' in file ) {
+					views.push( this.Message_file([ index, i ]) )
+				} else if( typeof file === 'string' && file.startsWith( 'data:' ) ) {
+					views.push( this.Message_image([ index, i ]) )
+				}
+			})
+			return views
+		}
+
+		@ $mol_mem_key
+		override message_image_uri( id: [ number, number ] ) {
+			const item = this.history()[ id[0] ]
+			const file = item.files[ id[1] ]
+			return typeof file === 'string' ? file : ''
+		}
+
+		@ $mol_mem_key
+		override message_content( index: number ) {
+			const attachments = this.message_attachments( index )
+			return [
+				... attachments.length ? [ this.Message_attachments( index ) ] : [],
+				this.Message_text( index ),
+			]
+		}
+		
+		@ $mol_mem_key
+		override message_file_name( [ msg, file ]: [ number, number ] ) {
+			const item = this.history()[ msg ]
+			const f = item.files[ file ]
+			return typeof f === 'object' && 'name' in f ? f.name : ''
+		}
+		
+		@ $mol_mem_key
+		override message_file_ext( [ msg, file ]: [ number, number ] ) {
+			const item = this.history()[ msg ]
+			const f = item.files[ file ]
+			if( typeof f !== 'object' || !( 'name' in f ) ) return ''
+			return f.name.split( '.' ).pop()?.toUpperCase() ?? ''
+		}
+		
+		@ $mol_mem_key
+		override message_file_info( [ msg, file ]: [ number, number ] ) {
+			const item = this.history()[ msg ]
+			const f = item.files[ file ]
+			if( typeof f !== 'object' || !( 'name' in f ) ) return ''
+			const lines = f.content.split( '\n' ).length
+			return lines + ' lines'
 		}
 		
 		@ $mol_mem
@@ -104,10 +165,19 @@ namespace $.$$ {
 			if( history.length % 2 === 0 ) return
 			
 			const model = this.Model().fork()
+			const last = history.length - 1
 			for( let i = 0; i < history.length; ++i ) {
 				const item = history[i]
-				if( i % 2 ) model.tell([ { messsage: item.message } ])
-				else model.ask([ item.message, ... item.files ])
+				if( i % 2 ) {
+					model.tell([ { messsage: item.message } ])
+				} else if( i === last ) {
+					const files = item.files.map( f =>
+						typeof f === 'object' && 'content' in f ? f.content : f
+					)
+					model.ask([ item.message, ... files ])
+				} else {
+					model.ask([ item.message ])
+				}
 			}
 			
 			try {
@@ -124,14 +194,23 @@ namespace $.$$ {
 		
 		@ $mol_action
 		override prompt_submit() {
-			if( !this.prompt_text() && !this.attach() ) return
+			if( !this.prompt_text() && !this.attach().length ) return
 			const Picture = $mol_wire_sync( this.$.$mol_picture )
-			const files = this.attach().map( item =>
-				Picture.fit( item, 512 ).url( 'image/webp' )
-			)
+			const meta_map = this.file_meta()
+			const files: ( string | FileItem )[] = this.attach().map( item => {
+				const meta = meta_map.get( item )
+				const resp = this.$.$mol_fetch.response( item )
+				const mime = resp.mime() ?? meta?.type ?? ''
+				if( mime.startsWith( 'image/' ) ) {
+					return Picture.fit( item, 512 ).url( 'image/webp' )
+				}
+				const content = resp.text()
+				return { name: meta?.name ?? 'file.txt', content } as FileItem
+			})
 			this.history([ ... this.history(), { message: this.prompt_text(), files } ])
 			this.prompt_text( '' )
 			this.attach( [] )
+			this.file_meta( new Map() )
 		}
 		
 		override reset() {
@@ -158,6 +237,137 @@ namespace $.$$ {
 			this.prompt_text( text )
 			this.Prompt_text().Edit().selection([ text.length, text.length ])
 			
+		}
+
+		@ $mol_mem
+		file_meta( next?: Map< string, { name: string, type: string } > ) {
+			return next ?? new Map()
+		}
+		
+		@ $mol_action
+		on_attach_files( files: readonly File[] ) {
+			const meta = new Map( this.file_meta() )
+			const urls = files.map( file => {
+				const url = URL.createObjectURL( file )
+				meta.set( url, { name: file.name, type: file.type } )
+				return url
+			})
+			this.file_meta( meta )
+			this.attach([ ... this.attach(), ... urls ])
+		}
+		
+		@ $mol_mem
+		override Attach() {
+			const obj = super.Attach()
+			obj.attach_new = ( files: readonly File[] ) => this.on_attach_files( files )
+			obj.content = () => [ obj.Add() ]
+			return obj
+		}
+		
+		@ $mol_action
+		attach_file_remove( index: number ) {
+			const urls = this.attach()
+			const url = urls[ index ]
+			if( !url ) return
+			const next = [ ... urls.slice( 0, index ), ... urls.slice( index + 1 ) ]
+			this.attach( next )
+			const meta = new Map( this.file_meta() )
+			meta.delete( url )
+			this.file_meta( meta )
+		}
+
+		@ $mol_mem
+		override attach_preview_items() {
+			return this.attach()
+				.map( ( url, i ) => {
+					const meta = this.file_meta().get( url )
+					if( meta && !meta.type.startsWith( 'image/' ) ) {
+						return this.Attach_file( i )
+					}
+					return this.Attach_image( i )
+				})
+		}
+
+		@ $mol_mem_key
+		override Attach_file( id: number ) {
+			const card = super.Attach_file( id )
+			card.click = ( next?: Event ) => {
+				if( !next ) return null
+				this.attach_file_remove( id )
+				return next
+			}
+			return card
+		}
+
+		@ $mol_mem_key
+		override Attach_image( id: number ) {
+			const img = super.Attach_image( id )
+			img.event = () => ({
+				click: ( e: Event ) => this.attach_file_remove( id ),
+			})
+			return img
+		}
+
+		@ $mol_mem_key
+		override attach_image_uri( id: number ) {
+			return this.attach()[ id ] ?? ''
+		}
+		
+		@ $mol_mem_key
+		override attach_file_name( index: number ) {
+			const url = this.attach()[ index ]
+			const meta = this.file_meta().get( url )
+			return meta?.name ?? 'file'
+		}
+		
+		@ $mol_mem_key
+		override attach_file_ext( index: number ) {
+			const url = this.attach()[ index ]
+			const meta = this.file_meta().get( url )
+			const name = meta?.name ?? ''
+			return name.split( '.' ).pop()?.toUpperCase() ?? ''
+		}
+		
+		@ $mol_mem_key
+		override attach_file_info( index: number ) {
+			const url = this.attach()[ index ]
+			const meta = this.file_meta().get( url )
+			if( !meta || meta.type.startsWith( 'image/' ) ) return ''
+			try {
+				const resp = this.$.$mol_fetch.response( url )
+				const text = resp.text()
+				const lines = text.split( '\n' ).length
+				return lines + ' lines'
+			} catch {
+				return ''
+			}
+		}
+		
+		on_paste( event: ClipboardEvent ) {
+			const files = [ ... event.clipboardData?.files ?? [] ]
+			if( !files.length ) return
+			event.preventDefault()
+			this.on_attach_files( files )
+		}
+		
+		static file_card_uri( name: string, info = '' ): string {
+			const ext = name.split( '.' ).pop()?.toUpperCase() ?? ''
+			const short = name.length > 24 ? name.slice( 0, 21 ) + '\u2026' : name
+			const escaped = short.replace( /[<>&"']/g, c =>
+				({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&apos;' } as Record<string,string>)[ c ] ?? c
+			)
+			const w = 180
+			const h = 100
+			const svg = [
+				`<svg xmlns='http://www.w3.org/2000/svg' width='${ w }' height='${ h }'>`,
+				`<rect width='${ w }' height='${ h }' rx='10' fill='%23f5f5f5' stroke='%23e0e0e0'/>`,
+				`<text x='14' y='30' font-size='12' font-weight='bold' fill='%23222' font-family='system-ui,sans-serif'>${ escaped }</text>`,
+				... info ? [ `<text x='14' y='48' font-size='10' fill='%23999' font-family='system-ui,sans-serif'>${ info }</text>` ] : [],
+				`<rect x='12' y='${ h - 28 }' rx='8' width='${ ext.length * 8 + 20 }' height='20' fill='%23e8e8e8'/>`,
+				`<text x='22' y='${ h - 14 }' font-size='10' font-weight='bold' fill='%23666' font-family='system-ui,sans-serif'>${ ext }</text>`,
+				`</svg>`,
+			].join( '' )
+			return `data:image/svg+xml,${ svg }`
 		}
 		
 	}
