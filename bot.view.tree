@@ -46,6 +46,8 @@ $giper_bot $mol_book2
 				<= Messages $mol_list
 					rows <= messages /
 						<= Message*0 $mol_view sub <= message_content* /
+							<= Message_attachments* $mol_view
+								sub <= message_attachments* /
 							<= Message_text* $mol_text text <= message_text* \
 			foot /
 				<= Attach_previews $mol_view
@@ -94,6 +96,8 @@ $giper_bot $mol_book2
 		name <= message_file_name* \
 		ext <= message_file_ext* \
 		info <= message_file_info* \
+	Message_image*0 $mol_image
+		uri <= message_image_uri* \
 	Attach_file* $giper_bot_file
 		name <= attach_file_name* \
 		ext <= attach_file_ext* \

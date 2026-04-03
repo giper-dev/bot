@@ -57,6 +57,23 @@ namespace $.$$ {
 				items: 'flex-start',
 			},
 		},
+
+		Message_attachments: {
+			display: 'grid',
+			gridTemplateColumns: 'repeat( auto-fill, minmax( 8rem, 1fr ) )',
+			gap: $mol_gap.block,
+			alignSelf: 'stretch',
+		},
+
+		Message_image: {
+			width: '100%',
+			maxHeight: '12rem',
+			overflow: 'hidden',
+			objectFit: 'cover',
+			border: {
+				radius: $mol_gap.round,
+			},
+		},
 		
 		Attach: {
 			gap: '.5rem',

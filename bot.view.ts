@@ -63,31 +63,46 @@ namespace $.$$ {
 		override message_text( index: number ): string {
 			
 			const item = this.history()[ index ]
-			let text = [ item.message, ... item.files.map( file => {
-				if( typeof file === 'object' && 'name' in file ) return ''
-				if( typeof file === 'string' && file.startsWith( 'data:' ) ) return `""` + file + `""`
-				return `\uD83D\uDCCE`
-			}) ].filter( Boolean ).join( '\n' )
-			
-			if( '`#>|='.includes( text[0] ) ) text = '\n' + text // markdown blocks
+			let text = item.message
+
+			if( !text ) return ''
+			if( '`#>|='.includes( text[0] ) ) text = '\n' + text
 			return this.message_name( index ) + ' ' + text
-			
+
 		}
-		
+
 		message_name( index: number ): string {
 			return index % 2 ? '🤖' : '🙂'
 		}
-		
+
+		@ $mol_mem_key
+		override message_attachments( index: number ) {
+			const item = this.history()[ index ]
+			const views: $mol_view[] = []
+			item.files.forEach( ( file, i ) => {
+				if( typeof file === 'object' && 'name' in file ) {
+					views.push( this.Message_file([ index, i ]) )
+				} else if( typeof file === 'string' && file.startsWith( 'data:' ) ) {
+					views.push( this.Message_image([ index, i ]) )
+				}
+			})
+			return views
+		}
+
+		@ $mol_mem_key
+		override message_image_uri( id: [ number, number ] ) {
+			const item = this.history()[ id[0] ]
+			const file = item.files[ id[1] ]
+			return typeof file === 'string' ? file : ''
+		}
+
 		@ $mol_mem_key
 		override message_content( index: number ) {
-			const item = this.history()[ index ]
-			const files = item.files
-				.map( ( file, i ) => {
-					if( typeof file !== 'object' || !( 'name' in file ) ) return null
-					return this.Message_file([ index, i ])
-				})
-				.filter( Boolean ) as $mol_view[]
-			return [ this.Message_text( index ), ... files ]
+			const attachments = this.message_attachments( index )
+			return [
+				... attachments.length ? [ this.Message_attachments( index ) ] : [],
+				this.Message_text( index ),
+			]
 		}
 		
 		@ $mol_mem_key
