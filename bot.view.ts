@@ -165,15 +165,18 @@ namespace $.$$ {
 			if( history.length % 2 === 0 ) return
 			
 			const model = this.Model().fork()
+			const last = history.length - 1
 			for( let i = 0; i < history.length; ++i ) {
 				const item = history[i]
 				if( i % 2 ) {
 					model.tell([ { messsage: item.message } ])
-				} else {
+				} else if( i === last ) {
 					const files = item.files.map( f =>
 						typeof f === 'object' && 'content' in f ? f.content : f
 					)
 					model.ask([ item.message, ... files ])
+				} else {
+					model.ask([ item.message ])
 				}
 			}
 			
