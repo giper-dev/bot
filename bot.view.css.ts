@@ -114,6 +114,7 @@ namespace $.$$ {
 				shrink: 1,
 			},
 		},
+
 		Context: {
 			flex: {
 				basis: '30rem',
@@ -122,5 +123,7 @@ namespace $.$$ {
 				gap: $mol_gap.block,
 			},
 		}
+
 	} )
+
 }
