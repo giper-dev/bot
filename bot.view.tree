@@ -102,3 +102,5 @@ $giper_bot $mol_book2
 		name <= attach_file_name* \
 		ext <= attach_file_ext* \
 		info <= attach_file_info* \
+	Attach_image* $mol_image
+		uri <= attach_image_uri* \

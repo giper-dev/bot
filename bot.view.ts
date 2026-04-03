@@ -259,23 +259,8 @@ namespace $.$$ {
 		@ $mol_mem
 		override Attach() {
 			const obj = super.Attach()
-
 			obj.attach_new = ( files: readonly File[] ) => this.on_attach_files( files )
-
-			const self = this
-
-			obj.content = () => {
-				const items = obj.items()
-				const views: $mol_view[] = []
-				for( let i = 0; i < items.length; ++i ) {
-					const meta = self.file_meta().get( items[i] )
-					if( meta && !meta.type.startsWith( 'image/' ) ) continue
-					views.push( obj.Item( i ) )
-				}
-				views.push( obj.Add() )
-				return views
-			}
-
+			obj.content = () => [ obj.Add() ]
 			return obj
 		}
 		
@@ -296,10 +281,11 @@ namespace $.$$ {
 			return this.attach()
 				.map( ( url, i ) => {
 					const meta = this.file_meta().get( url )
-					if( !meta || meta.type.startsWith( 'image/' ) ) return null
-					return this.Attach_file( i )
+					if( meta && !meta.type.startsWith( 'image/' ) ) {
+						return this.Attach_file( i )
+					}
+					return this.Attach_image( i )
 				})
-				.filter( Boolean ) as $mol_view[]
 		}
 
 		@ $mol_mem_key
@@ -311,6 +297,20 @@ namespace $.$$ {
 				return next
 			}
 			return card
+		}
+
+		@ $mol_mem_key
+		override Attach_image( id: number ) {
+			const img = super.Attach_image( id )
+			img.event = () => ({
+				click: ( e: Event ) => this.attach_file_remove( id ),
+			})
+			return img
+		}
+
+		@ $mol_mem_key
+		override attach_image_uri( id: number ) {
+			return this.attach()[ id ] ?? ''
 		}
 		
 		@ $mol_mem_key

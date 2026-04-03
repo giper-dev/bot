@@ -76,20 +76,27 @@ namespace $.$$ {
 		},
 		
 		Attach: {
-			gap: '.5rem',
-			Item: {
-				height: '2.5rem',
-			},
 			Add: {
 				height: '2.5rem',
 			},
 		},
-		
+
 		Attach_previews: {
+			display: 'grid',
+			gridTemplateColumns: 'repeat( auto-fill, minmax( 4rem, 1fr ) )',
 			gap: $mol_gap.block,
-			flex: {
-				wrap: 'wrap',
+			alignSelf: 'stretch',
+		},
+
+		Attach_image: {
+			width: '4rem',
+			height: '4rem',
+			objectFit: 'cover',
+			cursor: 'pointer',
+			border: {
+				radius: $mol_gap.round,
 			},
+			overflow: 'hidden',
 		},
 
 		Attach_file: {

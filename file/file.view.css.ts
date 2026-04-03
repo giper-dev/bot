@@ -2,16 +2,10 @@ namespace $.$$ {
 	
 	$mol_style_define( $giper_bot_file, {
 		
-		width: 'auto',
-		height: 'auto',
+		width: '6rem',
+		height: '5rem',
 		background: {
 			color: $mol_theme.card,
-		},
-		padding: {
-			top: '.5rem',
-			bottom: '.5rem',
-			left: '.75rem',
-			right: '.75rem',
 		},
 		flex: {
 			direction: 'column',
