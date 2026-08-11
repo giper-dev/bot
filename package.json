@@ -162,6 +162,7 @@
     "$mol_embed_native",
     "$mol_embed",
     "$mol_link",
+    "$mol_dom_safe",
     "$mol_wait_timeout",
     "$mol_locale",
     "$mol_icon_trash_can_outline",
