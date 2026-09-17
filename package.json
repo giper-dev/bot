@@ -238,6 +238,7 @@
     "$mol_textarea",
     "$mol_string",
     "$mol_hotkey",
+    "$mol_hotkey2",
     "$mol_icon_send",
     "$mol_page",
     "$mol_paginator",
