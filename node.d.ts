@@ -1550,13 +1550,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    /**
-     * Disable reaping of current subscriber
-     */
-    function $mol_wire_solid(): void;
-}
-
-declare namespace $ {
     function $mol_dom_render_attributes(el: Element, attrs: {
         [key: string]: string | number | boolean | null;
     }): void;
@@ -2031,6 +2024,13 @@ declare namespace $ {
         close(): void;
         destructor(): void;
     }
+}
+
+declare namespace $ {
+    /**
+     * Disable reaping of current subscriber
+     */
+    function $mol_wire_solid(): void;
 }
 
 declare namespace $ {
@@ -2691,93 +2691,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=minor.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_script extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=script.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_script_text extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=text.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_link_source extends $mol_link {
-		Icon( ): $mol_icon_script_text
-		hint( ): string
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=source.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_gift extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=gift.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_gift_outline extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=outline.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_link_donate extends $mol_link {
-		Icon( ): $mol_icon_gift_outline
-		hint( ): string
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=donate.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_face extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=face.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_face_agent extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=agent.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_link_support extends $mol_link {
-		Icon( ): $mol_icon_face_agent
-		hint( ): string
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=support.view.tree.d.ts.map
 declare namespace $ {
     class $mol_dom_event<EventType extends Event> extends $mol_object {
         readonly native: EventType;
@@ -5248,6 +5161,93 @@ declare namespace $ {
 }
 
 declare namespace $ {
+
+	export class $mol_icon_script extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=script.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_script_text extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=text.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_link_source extends $mol_link {
+		Icon( ): $mol_icon_script_text
+		hint( ): string
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=source.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_gift extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=gift.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_gift_outline extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=outline.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_link_donate extends $mol_link {
+		Icon( ): $mol_icon_gift_outline
+		hint( ): string
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=donate.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_face extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=face.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_face_agent extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=agent.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_link_support extends $mol_link {
+		Icon( ): $mol_icon_face_agent
+		hint( ): string
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=support.view.tree.d.ts.map
+declare namespace $ {
     type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
 }
 
@@ -6714,47 +6714,32 @@ declare namespace $ {
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_link_source__uri_giper_bot_5 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link_source['uri'] >
-	>
-	type $mol_link_donate__uri_giper_bot_6 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link_donate['uri'] >
-	>
-	type $mol_link_support__uri_giper_bot_7 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link_support['uri'] >
-	>
-	type $mol_status__status_giper_bot_8 = $mol_type_enforce<
+	type $mol_status__status_giper_bot_5 = $mol_type_enforce<
 		ReturnType< $giper_bot['communication'] >
 		,
 		ReturnType< $mol_status['status'] >
 	>
-	type $mol_text__text_giper_bot_9 = $mol_type_enforce<
+	type $mol_text__text_giper_bot_6 = $mol_type_enforce<
 		ReturnType< $giper_bot['message_text'] >
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_view__sub_giper_bot_10 = $mol_type_enforce<
+	type $mol_view__sub_giper_bot_7 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_list__rows_giper_bot_11 = $mol_type_enforce<
+	type $mol_list__rows_giper_bot_8 = $mol_type_enforce<
 		ReturnType< $giper_bot['messages'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_attach__items_giper_bot_12 = $mol_type_enforce<
+	type $mol_attach__items_giper_bot_9 = $mol_type_enforce<
 		ReturnType< $giper_bot['attach'] >
 		,
 		ReturnType< $mol_attach['items'] >
 	>
-	type $mol_textarea__event_giper_bot_13 = $mol_type_enforce<
+	type $mol_textarea__event_giper_bot_10 = $mol_type_enforce<
 		({ 
 			pointerdown( next?: ReturnType< $giper_bot['quote_start'] > ): ReturnType< $giper_bot['quote_start'] >,
 			pointerup( next?: ReturnType< $giper_bot['quote_end'] > ): ReturnType< $giper_bot['quote_end'] >,
@@ -6762,85 +6747,100 @@ declare namespace $ {
 		,
 		ReturnType< $mol_textarea['event'] >
 	>
-	type $mol_textarea__hint_giper_bot_14 = $mol_type_enforce<
+	type $mol_textarea__hint_giper_bot_11 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_textarea['hint'] >
 	>
-	type $mol_textarea__value_giper_bot_15 = $mol_type_enforce<
+	type $mol_textarea__value_giper_bot_12 = $mol_type_enforce<
 		ReturnType< $giper_bot['prompt_text'] >
 		,
 		ReturnType< $mol_textarea['value'] >
 	>
-	type $mol_textarea__submit_giper_bot_16 = $mol_type_enforce<
+	type $mol_textarea__submit_giper_bot_13 = $mol_type_enforce<
 		ReturnType< $giper_bot['prompt_submit'] >
 		,
 		ReturnType< $mol_textarea['submit'] >
 	>
-	type $mol_button_minor__hint_giper_bot_17 = $mol_type_enforce<
+	type $mol_button_minor__hint_giper_bot_14 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click_giper_bot_18 = $mol_type_enforce<
+	type $mol_button_minor__click_giper_bot_15 = $mol_type_enforce<
 		ReturnType< $giper_bot['prompt_submit'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub_giper_bot_19 = $mol_type_enforce<
+	type $mol_button_minor__sub_giper_bot_16 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_page__title_giper_bot_20 = $mol_type_enforce<
+	type $mol_page__title_giper_bot_17 = $mol_type_enforce<
 		ReturnType< $giper_bot['dialog_title'] >
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_giper_bot_21 = $mol_type_enforce<
+	type $mol_page__tools_giper_bot_18 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__body_content_giper_bot_22 = $mol_type_enforce<
+	type $mol_page__body_content_giper_bot_19 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body_content'] >
 	>
-	type $mol_page__foot_giper_bot_23 = $mol_type_enforce<
+	type $mol_page__foot_giper_bot_20 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['foot'] >
 	>
-	type $mol_paginator__value_giper_bot_24 = $mol_type_enforce<
+	type $mol_paginator__value_giper_bot_21 = $mol_type_enforce<
 		ReturnType< $giper_bot['version'] >
 		,
 		ReturnType< $mol_paginator['value'] >
 	>
-	type $mol_textarea__sidebar_showed_giper_bot_25 = $mol_type_enforce<
+	type $mol_textarea__sidebar_showed_giper_bot_22 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $mol_textarea['sidebar_showed'] >
 	>
-	type $mol_textarea__value_giper_bot_26 = $mol_type_enforce<
+	type $mol_textarea__value_giper_bot_23 = $mol_type_enforce<
 		ReturnType< $giper_bot['result'] >
 		,
 		ReturnType< $mol_textarea['value'] >
 	>
-	type $mol_page__title_giper_bot_27 = $mol_type_enforce<
+	type $mol_page__title_giper_bot_24 = $mol_type_enforce<
 		ReturnType< $giper_bot['result_title'] >
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_giper_bot_28 = $mol_type_enforce<
+	type $mol_page__tools_giper_bot_25 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__body_giper_bot_29 = $mol_type_enforce<
+	type $mol_page__body_giper_bot_26 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
+	>
+	type $mol_link_source__uri_giper_bot_27 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_link_source['uri'] >
+	>
+	type $mol_link_donate__uri_giper_bot_28 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_link_donate['uri'] >
+	>
+	type $mol_link_support__uri_giper_bot_29 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_link_support['uri'] >
 	>
 	type $mol_text__text_giper_bot_30 = $mol_type_enforce<
 		ReturnType< $giper_bot['digest'] >
@@ -6852,24 +6852,29 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__body_giper_bot_32 = $mol_type_enforce<
+	type $mol_page__tools_giper_bot_32 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_page['tools'] >
+	>
+	type $mol_page__body_giper_bot_33 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_github_model__params_giper_bot_33 = $mol_type_enforce<
+	type $mol_github_model__params_giper_bot_34 = $mol_type_enforce<
 		({ 
 			'temperature': number,
 		}) 
 		,
 		ReturnType< $mol_github_model['params'] >
 	>
-	type $mol_github_model__rules_giper_bot_34 = $mol_type_enforce<
+	type $mol_github_model__rules_giper_bot_35 = $mol_type_enforce<
 		ReturnType< $giper_bot['context'] >
 		,
 		ReturnType< $mol_github_model['rules'] >
 	>
-	type $mol_github_model__state_giper_bot_35 = $mol_type_enforce<
+	type $mol_github_model__state_giper_bot_36 = $mol_type_enforce<
 		ReturnType< $giper_bot['state'] >
 		,
 		ReturnType< $mol_github_model['state'] >
@@ -6884,9 +6889,6 @@ declare namespace $ {
 		reset( next?: any ): any
 		Reset_icon( ): $mol_icon_trash_can_outline
 		Reset( ): $mol_button_minor
-		Sources( ): $mol_link_source
-		Donate( ): $mol_link_donate
-		Support( ): $mol_link_support
 		Lights( ): $mol_lights_toggle
 		communication( ): any
 		Status( ): $mol_status
@@ -6911,6 +6913,9 @@ declare namespace $ {
 		result( next?: string ): string
 		Result( ): $mol_textarea
 		Result_page( id: any): $mol_page
+		Sources( ): $mol_link_source
+		Donate( ): $mol_link_donate
+		Support( ): $mol_link_support
 		digest( next?: string ): string
 		Digest( ): $mol_text
 		Context( ): $mol_page
